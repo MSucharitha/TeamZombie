@@ -68,6 +68,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void Update()
         {
             RotateView();
+            //PlayFootStepAudio();
             // the jump state needs to read here to make sure it is not missed
             if (!m_Jump)
             {
@@ -171,10 +172,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void PlayFootStepAudio()
         {
-            if (!m_CharacterController.isGrounded)
-            {
-                return;
-            }
+            
             // pick & play a random footstep sound from the array,
             // excluding sound at index 0
             int n = Random.Range(1, m_FootstepSounds.Length);
