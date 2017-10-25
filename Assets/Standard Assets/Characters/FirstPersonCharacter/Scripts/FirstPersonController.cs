@@ -48,7 +48,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Use this for initialization
         private void Start()
         {
-            VRSettings.renderScale = m_RenderScale;
+            UnityEngine.XR.XRSettings.eyeTextureResolutionScale = m_RenderScale;
 
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
