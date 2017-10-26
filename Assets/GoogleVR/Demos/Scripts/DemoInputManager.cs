@@ -88,7 +88,7 @@ public class DemoInputManager : MonoBehaviour {
     if (playerSettingsHasDaydream() || playerSettingsHasCardboard()) {
       // The list is populated with valid VR SDK(s), pick the first one.
       gvrEmulatedPlatformType =
-        (UnityEngine.XR.XRSettings.supportedDevices[0] == DAYDREAM_DEVICE_NAME) ?
+        (UnityEngine.VR.VRSettings.supportedDevices[0] == DAYDREAM_DEVICE_NAME) ?
         EmulatedPlatformType.Daydream :
         EmulatedPlatformType.Cardboard;
     }
@@ -147,13 +147,13 @@ public class DemoInputManager : MonoBehaviour {
   }
 
   public static bool playerSettingsHasDaydream() {
-    string[] playerSettingsVrSdks = UnityEngine.XR.XRSettings.supportedDevices;
+    string[] playerSettingsVrSdks = UnityEngine.VR.VRSettings.supportedDevices;
     return Array.Exists<string>(playerSettingsVrSdks,
         element => element.Equals(DemoInputManager.DAYDREAM_DEVICE_NAME));
   }
 
   public static bool playerSettingsHasCardboard() {
-    string[] playerSettingsVrSdks = UnityEngine.XR.XRSettings.supportedDevices;
+    string[] playerSettingsVrSdks = UnityEngine.VR.VRSettings.supportedDevices;
     return Array.Exists<string>(playerSettingsVrSdks,
         element => element.Equals(DemoInputManager.CARDBOARD_DEVICE_NAME));
   }

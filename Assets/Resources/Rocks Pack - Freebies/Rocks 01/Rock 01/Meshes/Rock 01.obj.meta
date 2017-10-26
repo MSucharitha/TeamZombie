@@ -1,38 +1,28 @@
 fileFormatVersion: 2
 guid: b170a071d9c685343bdda95ed3bf48ef
-labels:
-- Prop
-- Terrain
-timeCreated: 18446744011573954816
+timeCreated: 1509038642
+licenseType: Free
 ModelImporter:
-  serializedVersion: 22
+  serializedVersion: 21
   fileIDToRecycleName:
-    100000: rock_01
-    100002: //RootNode
-    100004: Rock_01
-    100006: Rock_01_collider
-    400000: rock_01
-    400002: //RootNode
-    400004: Rock_01
-    400006: Rock_01_collider
-    2300000: rock_01
-    2300002: Rock_01
-    2300004: Rock_01_collider
-    3300000: rock_01
-    3300002: Rock_01
-    3300004: Rock_01_collider
-    4300000: rock_01
-    4300002: Rock_01
-    4300004: Rock_01_collider
-    9500000: //RootNode
-  externalObjects: {}
+    100000: //RootNode
+    100002: Rock_01
+    100004: Rock_01_collider
+    400000: //RootNode
+    400002: Rock_01
+    400004: Rock_01_collider
+    2300000: Rock_01
+    2300002: Rock_01_collider
+    3300000: Rock_01
+    3300002: Rock_01_collider
+    4300000: Rock_01
+    4300002: Rock_01_collider
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
-    materialSearch: 0
-    materialLocation: 0
+    materialSearch: 1
   animations:
-    legacyGenerateAnimations: 0
+    legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
@@ -43,7 +33,6 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    importAnimatedCustomProperties: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -55,13 +44,13 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.25
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
-    importVisibility: 0
+    importVisibility: 1
     importBlendShapes: 1
-    importCameras: 0
-    importLights: 0
+    importCameras: 1
+    importLights: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -72,13 +61,13 @@ ModelImporter:
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 0
+    useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
-    tangentImportMode: 4
-    normalCalculationMode: 0
-  importAnimation: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2
@@ -95,7 +84,7 @@ ModelImporter:
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
-    skeletonHasParents: 0
+    skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 0
   humanoidOversampling: 1
