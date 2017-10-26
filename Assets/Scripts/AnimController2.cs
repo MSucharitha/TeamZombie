@@ -8,10 +8,19 @@ public class AnimController2 : MonoBehaviour {
     public float speed = 0.8f;
     public float rotationSpeed = 75.0f;
     bool keepwalking = true;
+
+
     // Use this for initialization
     void Start()
     {
         anim = GetComponent<Animator>();
+
+		// Add a capsule collider to the attached Zombie GameObject
+		CapsuleCollider zombieCollider = gameObject.AddComponent<CapsuleCollider> ();
+
+		// // If Unity properly determines the height and radius, then remove this section
+		// zombieCollider.height = 10f;
+		// zombieCollider.radius = 5f;
     }
 
     // Update is called once per frame
