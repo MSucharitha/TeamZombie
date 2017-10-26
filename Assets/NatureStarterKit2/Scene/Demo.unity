@@ -5621,22 +5621,7 @@ MonoBehaviour:
   - obj: {fileID: 100000, guid: 7163db7426b13a345b09fa28a500a5e6, type: 3}
     rotation: {x: 0, y: 0, z: 0, w: 0}
     scale: 1
-  - obj: {fileID: 100000, guid: 79bce83937e43d042843a359e671ca99, type: 2}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
-    scale: 0.01
-  - obj: {fileID: 100000, guid: e2abe2db222fa9c49a111c088001ebcf, type: 2}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
-    scale: 0.01
-  - obj: {fileID: 100000, guid: 3da8c6e2c0ecd1d4492b3612b97222db, type: 2}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
-    scale: 0.01
-  - obj: {fileID: 100000, guid: e349b6a927183154d9bf449b09b8e413, type: 2}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
-    scale: 0.01
-  - obj: {fileID: 100000, guid: 7ca168569b7f1c5479b28f521d0a1a32, type: 2}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
-    scale: 0.01
-  avgResourcesPerSquare: 75
+  avgResourcesPerSquare: 50
   stdResourcesPerSquare: 20
   viewer: {fileID: 753292245}
   mapMaterial: {fileID: 2100000, guid: 12dd767029d24c541a83f5a10705316f, type: 2}
