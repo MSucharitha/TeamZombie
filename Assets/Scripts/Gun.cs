@@ -8,16 +8,22 @@ public class Gun : MonoBehaviour {
     public float range = 100f;
     public Camera fpsCam;
     public ParticleSystem muzzleflash;
-	// Use this for initialization
-	void Start () {
-       
-	}
+    Animator anim;
+
+    // Use this for initialization
+    void Start () {
+        anim = GetComponent<Animator>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetButtonDown("Fire1"))
+        //   if (Input.GetButtonDown("Fire1"))
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         {
+
             Shoot();
+            Debug.Log("Pressed left click.");
+           
         }
 
     }
@@ -27,6 +33,7 @@ public class Gun : MonoBehaviour {
         RaycastHit hit;
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
+           // anim.SetInteger("life", 0);
             Debug.Log(message: hit.transform.name + "Fired");
         }
     }
