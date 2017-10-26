@@ -65,7 +65,8 @@ public class EndlessTerrain : MonoBehaviour {
 				if (terrainChunkDictionary.ContainsKey (viewedChunkCoord)) {
 					terrainChunkDictionary [viewedChunkCoord].UpdateTerrainChunk ();
 				} else {
-					terrainChunkDictionary.Add (viewedChunkCoord, new TerrainChunk (viewedChunkCoord, chunkSize, detailLevels, transform, mapMaterial));
+					TerrainChunk newChunk = new TerrainChunk (viewedChunkCoord, chunkSize, detailLevels, transform, mapMaterial);
+					terrainChunkDictionary.Add (viewedChunkCoord, newChunk);
 				}
 
 				if (xOffset >= -1 && xOffset <= 1 && yOffset >= -1 && yOffset <= 1 && !treesGeneratedInChunk.Contains(viewedChunkCoord)) {
@@ -103,6 +104,7 @@ public class EndlessTerrain : MonoBehaviour {
 			// Instantiate Object
 			// TODO: Change position.y to the position dictated by the heightMap from MapGenerator
 			GameObject added_resource = Instantiate (obj, new Vector3 (tree_x_pos, position.y, tree_z_pos), rot * rand_rot);
+			added_resource.transform.parent = gameObject.transform.Find("AllTrees");
 
 			// Scale Object with some Randomness
 			Transform resource_transform = added_resource.GetComponent<Transform> ();
