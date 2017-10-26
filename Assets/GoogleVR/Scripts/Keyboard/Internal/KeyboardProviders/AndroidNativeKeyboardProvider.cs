@@ -195,7 +195,7 @@ namespace Gvr.Internal {
         isValid = true;
       }
 #endif // UNITY_ANDROID && !UNITY_EDITOR
-      UnityEngine.XR.InputTracking.disablePositionalTracking = true;
+      InputTracking.disablePositionalTracking = true;
       renderEventFunction = GetKeyboardRenderEventFunc();
     }
 
