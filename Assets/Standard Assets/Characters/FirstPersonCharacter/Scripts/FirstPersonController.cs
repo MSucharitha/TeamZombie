@@ -48,7 +48,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Use this for initialization
         private void Start()
         {
-            VRSettings.renderScale = m_RenderScale;
+            UnityEngine.XR.XRSettings.eyeTextureResolutionScale = m_RenderScale;
 
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
@@ -140,7 +140,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             UpdateCameraPosition(m_RunSpeed);
 
             m_MouseLook.UpdateCursorLock();
-
+            
         }
 
 
@@ -172,7 +172,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void PlayFootStepAudio()
         {
-
+            
             // pick & play a random footstep sound from the array,
             // excluding sound at index 0
             int n = Random.Range(1, m_FootstepSounds.Length);
