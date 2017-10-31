@@ -73,6 +73,9 @@ public class Gun : MonoBehaviour {
                     System.Console.WriteLine("weapon shot zombie");
 
                 }
+
+				// Remove Capsule Collider for zombie once it is dead
+				hit.collider.gameObject.GetComponent<CapsuleCollider>().enabled = false;
              }
         }
     }
