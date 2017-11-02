@@ -7,6 +7,7 @@ public class Gun : MonoBehaviour {
 
     public float damage = 10f;
     public float range = 100f;
+    private int score = 0;
     public Camera fpsCam;
     public ParticleSystem muzzleflash;
     Animator anim;
@@ -39,6 +40,14 @@ public class Gun : MonoBehaviour {
         }
 
     }
+
+    public int getScore() {
+        return score;
+    }
+    private void incrementScore() {
+        score += 100;
+    }
+
     void Shoot()
     {
         muzzleflash.Play();
@@ -64,7 +73,10 @@ public class Gun : MonoBehaviour {
                     
                     // otherAnimator.shot1();                   
                     System.Console.WriteLine("handgun shot zombie");
-                    
+
+                    incrementScore();
+
+
                 }
                 else
                 {                    

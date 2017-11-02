@@ -8,7 +8,7 @@ public class AnimController2 : MonoBehaviour {
     public float speed = 0.8f;
     public float rotationSpeed = 75.0f;
     bool keepwalking = true;
-
+    public Transform playerLocation;
 
     // Use this for initialization
     void Start()
@@ -33,6 +33,7 @@ public class AnimController2 : MonoBehaviour {
             transform.Translate(0, 0, speed * Time.deltaTime);
             //   transform.Translate(Vector3.back * Time.deltaTime * 10);
         }
+        /*
         if (transform.position.z <= -241) {
             anim.SetInteger("life", 1);
         }
@@ -40,7 +41,7 @@ public class AnimController2 : MonoBehaviour {
         {
             shot0();
             keepwalking = false;
-        }
+        }*/
     }
 
     public void shot1() {
