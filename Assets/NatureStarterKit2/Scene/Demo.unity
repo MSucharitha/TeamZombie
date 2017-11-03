@@ -134,6 +134,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   speed: 0.8
   rotationSpeed: 75
+  playerLocation: {fileID: 0}
 --- !u!1001 &6944750
 Prefab:
   m_ObjectHideFlags: 0
@@ -1690,7 +1691,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerLocation: {fileID: 19115949}
-  enemy: {fileID: 100062, guid: b1b990ec0fafdc64b8f7cad54d283fbc, type: 3}
+  zombie: {fileID: 0}
   spawnTime: 3
   spawnPoints:
   - {fileID: 1340130789}
@@ -1706,7 +1707,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerLocation: {fileID: 19115949}
-  enemy: {fileID: 556582750}
+  zombie: {fileID: 0}
   spawnTime: 5
   spawnPoints:
   - {fileID: 1428757637}
@@ -1722,7 +1723,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerLocation: {fileID: 19115949}
-  enemy: {fileID: 1112050190}
+  zombie: {fileID: 0}
   spawnTime: 7
   spawnPoints:
   - {fileID: 1495616704}
@@ -9568,6 +9569,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   speed: 2
   rotationSpeed: 75
+  playerLocation: {fileID: 0}
 --- !u!4 &558402325 stripped
 Transform:
   m_PrefabParentObject: {fileID: 445910, guid: c63ea781a273235439e583799176c846, type: 2}
@@ -9598,6 +9600,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   speed: 0.8
   rotationSpeed: 75
+  playerLocation: {fileID: 0}
 --- !u!4 &568677772 stripped
 Transform:
   m_PrefabParentObject: {fileID: 445910, guid: c63ea781a273235439e583799176c846, type: 2}
@@ -14359,7 +14362,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 963839372}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7701, y: 2392.2, z: -37.6}
+  m_LocalPosition: {x: 6451, y: 5882.2, z: -37.6}
   m_LocalScale: {x: 20, y: 20, z: 20}
   m_Children:
   - {fileID: 167860063}
@@ -15998,6 +16001,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   speed: 0.8
   rotationSpeed: 75
+  playerLocation: {fileID: 0}
 --- !u!1001 &1112600101
 Prefab:
   m_ObjectHideFlags: 0
@@ -17787,6 +17791,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   speed: 0.8
   rotationSpeed: 75
+  playerLocation: {fileID: 0}
 --- !u!1001 &1224824966
 Prefab:
   m_ObjectHideFlags: 0
@@ -18919,6 +18924,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   speed: 2
   rotationSpeed: 75
+  playerLocation: {fileID: 0}
 --- !u!1001 &1263240129
 Prefab:
   m_ObjectHideFlags: 0
@@ -25167,9 +25173,41 @@ Prefab:
       propertyPath: m_LocalPosition.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8200000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1907819779 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
+  m_PrefabInternal: {fileID: 1907819778}
+--- !u!136 &1907819780
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1907819779}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 2
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1907819781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1907819779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 400403386b3383f4ea48d9c3769244b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1917110079 stripped
 Transform:
   m_PrefabParentObject: {fileID: 429508, guid: 9c74caa742791864f9c678287121e6c9, type: 2}
@@ -25972,6 +26010,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   speed: 0.8
   rotationSpeed: 75
+  playerLocation: {fileID: 0}
 --- !u!1001 &1983850967
 Prefab:
   m_ObjectHideFlags: 0
