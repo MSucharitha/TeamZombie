@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AnimController2 : MonoBehaviour {
 
@@ -9,6 +10,8 @@ public class AnimController2 : MonoBehaviour {
     public float rotationSpeed = 75.0f;
     bool keepwalking = true;
     public Transform playerLocation;
+    public Text score;
+    int count = 0;
 
     // Use this for initialization
     void Start()
@@ -49,6 +52,8 @@ public class AnimController2 : MonoBehaviour {
     }
     public void shot0()
     {
+        count++;
+        score.text = count + "";
         anim.SetInteger("life", 0);
     }
 
