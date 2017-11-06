@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.VR;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
 using Random = UnityEngine.Random;
@@ -11,8 +10,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
     [RequireComponent(typeof (AudioSource))]
     public class FirstPersonController : MonoBehaviour
     {
-        [SerializeField] private float m_RenderScale = 0.2f;              //The render scale. Higher numbers = better quality, but trades performance
-
         [SerializeField] private bool m_IsWalking;
         [SerializeField] private float m_WalkSpeed;
         [SerializeField] private float m_RunSpeed;
@@ -48,8 +45,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Use this for initialization
         private void Start()
         {
-            UnityEngine.XR.XRSettings.eyeTextureResolutionScale = m_RenderScale;
-
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
             m_OriginalCameraPosition = m_Camera.transform.localPosition;
@@ -60,7 +55,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
-            PlayFootStepAudio();
         }
 
 
@@ -68,7 +62,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void Update()
         {
             RotateView();
-            //PlayFootStepAudio();
             // the jump state needs to read here to make sure it is not missed
             if (!m_Jump)
             {
@@ -101,21 +94,19 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void FixedUpdate()
         {
-            //float speed;
-            //GetInput(out speed);
+            float speed;
+            GetInput(out speed);
             // always move along the camera forward as it is the direction that it being aimed at
+            //Vector3 desiredMove = transform.forward*m_Input.y + transform.right*m_Input.x;
             Vector3 desiredMove = Camera.main.transform.forward;
-
             // get a normal for the surface that is being touched to move along it
             RaycastHit hitInfo;
             Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
                                m_CharacterController.height/2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
-            //desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
-            desiredMove.y = 0;
-            m_MoveDir = desiredMove * Time.deltaTime * m_RunSpeed * 10;
+            desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
 
-            //m_MoveDir.x = desiredMove.x*speed;
-            //m_MoveDir.z = desiredMove.z*speed;
+            m_MoveDir.x = desiredMove.x*speed;
+            m_MoveDir.z = desiredMove.z*speed;
 
 
             if (m_CharacterController.isGrounded)
@@ -136,11 +127,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             m_CollisionFlags = m_CharacterController.Move(m_MoveDir*Time.fixedDeltaTime);
 
-            ProgressStepCycle(m_RunSpeed);
-            UpdateCameraPosition(m_RunSpeed);
+            ProgressStepCycle(speed);
+            UpdateCameraPosition(speed);
 
             m_MouseLook.UpdateCursorLock();
-            
         }
 
 
@@ -155,7 +145,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             if (m_CharacterController.velocity.sqrMagnitude > 0 && (m_Input.x != 0 || m_Input.y != 0))
             {
-                m_StepCycle += (m_CharacterController.velocity.magnitude + (speed*( m_RunstepLenghten)))*
+                m_StepCycle += (m_CharacterController.velocity.magnitude + (speed*(m_IsWalking ? 1f : m_RunstepLenghten)))*
                              Time.fixedDeltaTime;
             }
 
@@ -172,7 +162,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void PlayFootStepAudio()
         {
-            
+            if (!m_CharacterController.isGrounded)
+            {
+                return;
+            }
             // pick & play a random footstep sound from the array,
             // excluding sound at index 0
             int n = Random.Range(1, m_FootstepSounds.Length);
@@ -211,8 +204,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void GetInput(out float speed)
         {
             // Read input
-            float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
-            float vertical = CrossPlatformInputManager.GetAxis("Vertical");
+            float horizontal = 0;//CrossPlatformInputManager.GetAxis("Horizontal");
+            float vertical = 1;//CrossPlatformInputManager.GetAxis("Vertical");
 
             bool waswalking = m_IsWalking;
 
