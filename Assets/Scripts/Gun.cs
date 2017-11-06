@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class Gun : MonoBehaviour {
 
@@ -13,6 +13,8 @@ public class Gun : MonoBehaviour {
     Animator anim;
     string GunName;
     GameObject zombie1;
+    private Text scoreText;
+
     AnimController2 otherAnimator;
     void Awake()
     {
@@ -25,6 +27,8 @@ public class Gun : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        scoreText = GameObject.FindGameObjectWithTag("score").GetComponent<Text>();
+
         anim = GetComponent<Animator>();
         // GunName = this.ToString();      
     }
@@ -46,6 +50,7 @@ public class Gun : MonoBehaviour {
     }
     private void incrementScore() {
         score += 100;
+        scoreText.text = "Score: "+score + "";
     }
 
     void Shoot()

@@ -10,14 +10,11 @@ public class AnimController2 : MonoBehaviour {
     public float rotationSpeed = 75.0f;
     bool keepwalking = true;
     public Transform playerLocation;
-    public Text score;
-    int count = 0;
-
+    
     // Use this for initialization
     void Start()
     {
         anim = GetComponent<Animator>();
-
 		// Add a capsule collider to the attached Zombie GameObject
 		CapsuleCollider zombieCollider = gameObject.AddComponent<CapsuleCollider> ();
 
@@ -52,8 +49,7 @@ public class AnimController2 : MonoBehaviour {
     }
     public void shot0()
     {
-        count++;
-        score.text = count + "";
+        
         anim.SetInteger("life", 0);
     }
 
