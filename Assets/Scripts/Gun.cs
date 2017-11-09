@@ -12,18 +12,7 @@ public class Gun : MonoBehaviour {
     public ParticleSystem muzzleflash;
     Animator anim;
     string GunName;
-    GameObject zombie1;
     private Text scoreText;
-
-    AnimController2 otherAnimator;
-    void Awake()
-    {
-        zombie1 = GameObject.Find("Zombie_02_black_Tshirt").GetComponent<GameObject>();
-        if (zombie1 != null)
-        {
-           // otherAnimator = zombie1.GetComponent<Animator>();
-        }
-    }
 
     // Use this for initialization
     void Start () {
@@ -35,65 +24,74 @@ public class Gun : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //   if (Input.GetButtonDown("Fire1"))
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetButtonDown("Fire1"))
         {
             Shoot();
-            Debug.Log("Pressed left click.");
-            System.Console.WriteLine("fired");
+            Debug.Log("Pressed left click. Gun fired.");
         }
-
     }
 
     public int getScore() {
         return score;
     }
+
     private void incrementScore() {
         score += 100;
-        scoreText.text = "Score: "+score + "";
+        scoreText.text = "Score: " + score + "";
     }
 
     void Shoot()
     {
         muzzleflash.Play();
         RaycastHit hit;
-        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
-        {
-           // 
-            Debug.Log(message: hit.transform.name + "Fired");
-            print(hit.collider.name);
-            System.Console.WriteLine(hit.collider.name);
-            System.Console.WriteLine(hit.distance);
-            System.Console.WriteLine(GunName);
-            System.Console.WriteLine(hit.transform.name);
-            otherAnimator = hit.collider.gameObject.GetComponent<AnimController2>();
-            if(otherAnimator !=null)
-         //   if (hit.collider.gameObject.name == "Zombie_01_Tshirt" || hit.collider.name == "Terrain Chunk" || hit.collider.name == "Zombie_01_Tshirt" || hit.collider.gameObject.name == "Zombie_02_black_Tshirt"|| hit.transform.name == "Zombie_01_Tshirt") //name ?
-            {
-                
-                if (this.gameObject.name.Equals("Handgun"))
-                {
-                    
-                        otherAnimator.anim.SetInteger("life", 0);
-                    
-                    // otherAnimator.shot1();                   
-                    System.Console.WriteLine("handgun shot zombie");
 
-                    incrementScore();
+		bool foundCollision = Physics.Raycast (fpsCam.transform.position, fpsCam.transform.forward, out hit, range);
+
+		if (foundCollision) {
+
+			GameObject HitObj = hit.collider.gameObject;
+			
+			print ("Shot Object Tag: " + HitObj.transform.tag);
+			// Debug.Log (message: hit.transform.name + "Fired");
+			// print (hit.collider.name);
+			// System.Console.WriteLine (hit.collider.name);
+			// System.Console.WriteLine (hit.distance);
+			// System.Console.WriteLine (GunName);
+			// System.Console.WriteLine (hit.transform.name);
+
+			if (HitObj.transform.tag == "zombie") {
+
+				// Activate Zombie Death Animation
+				AnimController2 zombieCtrl = HitObj.GetComponent<AnimController2> ();
+				zombieCtrl.anim.SetInteger ("life", 0);
+
+				//// Legacy code for later consideration of weapon type
+				/*
+				if (this.gameObject.name.Equals ("Handgun")) {
+
+					otherAnimator.anim.SetInteger ("life", 0);
+
+					// otherAnimator.shot1();                   
+					System.Console.WriteLine ("handgun shot zombie");
+
+					incrementScore ();
 
 
-                }
-                else
-                {                    
-                        otherAnimator.anim.SetInteger("life", 0);                    
-                   
-                    System.Console.WriteLine("weapon shot zombie");
+				} else {                    
+					otherAnimator.anim.SetInteger ("life", 0);                    
 
-                }
+					System.Console.WriteLine ("weapon shot zombie");
 
-				// Remove Capsule Collider for zombie once it is dead
-				hit.collider.gameObject.GetComponent<CapsuleCollider>().enabled = false;
-             }
-        }
+				}
+				*/
+
+				// Remove Zombie Collider
+				print ("Does it have a collider? " + (HitObj.GetComponent<CapsuleCollider> ().enabled.ToString()));
+				HitObj.GetComponent<CapsuleCollider> ().enabled = false;
+
+				//// TODO: Increment Player's Score
+				// incrementScore ();
+			}
+		}
     }
 }
