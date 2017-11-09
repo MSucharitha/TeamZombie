@@ -6,6 +6,7 @@ public class Manager : MonoBehaviour
 {
     //  public PlayerHealth playerHealth;       // Reference to the player's heatlh.
     public Transform playerLocation;
+    public GameObject zombie;
     public GameObject[] zombies;                // The enemy prefab to be spawned.
     public float spawnTime = 5f;            // 2 seconds between each spawn.
     public Transform[] spawnPoints;         // An array of the spawn points this enemy can spawn from.
@@ -13,6 +14,12 @@ public class Manager : MonoBehaviour
     private GameObject zombieArrow;
     public Transform playerArrow;
 
+
+    //maximum allowed number of objects - set in the editor
+    public int maxObjects = 20;
+
+    //number of objects currently spawned
+    public int spawnCount = 0;
 
     void Start()  
     {
@@ -24,10 +31,21 @@ public class Manager : MonoBehaviour
     }
 
 
-    void Spawn()
-    {        
 
-        // Find a random index between zero and one less than the number of spawn points.
+
+    void Spawn()
+    {
+
+        if (maxObjects > spawnCount)
+        {
+            SpawnEnemy();
+        }
+
+    }
+        
+    void SpawnEnemy(){
+
+    // Find a random index between zero and one less than the number of spawn points.
         int spawnPointIndex = Random.Range(0, spawnPoints.Length);
 
         int offsetX = Random.Range(30, 60);
@@ -38,18 +56,25 @@ public class Manager : MonoBehaviour
         if (signZ == 0) { signZ = -1; };
         int random_zombie = Random.Range(0, zombies.Length);
 
-        int angle = Random.Range(1, 360);
+        int random_angle = Random.Range(1, 360);
 
+        // Jessie original version
+        
         spawnPoints[spawnPointIndex].position = new Vector3(playerLocation.position.x + offsetX * signX, 0, playerLocation.position.z + offsetZ * signZ);
-<<<<<<< HEAD
-        spawnPoints[spawnPointIndex].rotation.Set(spawnPoints[spawnPointIndex].rotation.x, /*playerLocation.rotation.y*/ + angle, spawnPoints[spawnPointIndex].rotation.z, spawnPoints[spawnPointIndex].rotation.w);
-      //  spawnPoints[spawnPointIndex].rotation.y = playerLocation.rotation.y + 180;
+
+       // Vector3 targetDir = target.position - transform.position;
+        Vector3 targetDir = playerLocation.position - spawnPoints[spawnPointIndex].position;
+        float angle = Vector3.Angle(targetDir, transform.forward);
+        spawnPoints[spawnPointIndex].rotation.Set(spawnPoints[spawnPointIndex].rotation.x, angle, spawnPoints[spawnPointIndex].rotation.z, spawnPoints[spawnPointIndex].rotation.w);
         
         // Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
         //gameobject new_zombie = Instantiate(...);
-        // new_zombie.(become child of some object)(parent object name)
+        // new_zombie.(become child of some object)(parent object name)        
         Instantiate(zombies[random_zombie], spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
-=======
+        spawnCount++;
+
+//viraj version
+/*
         //  spawnPoints[spawnPointIndex].rotation.y = playerLocation.rotation.y + 180;
         Vector3 position = new Vector3(playerLocation.position.x + offsetX * signX, 17.3f, playerLocation.position.z + offsetZ * signZ);
         //Vector3 directionOfLook = playerLocation.position - position;
@@ -63,7 +88,7 @@ public class Manager : MonoBehaviour
         zombieArrow = Instantiate(zombieArrowPrefab, position, rotation) as GameObject;
         zombieArrow.transform.localScale = playerArrow.localScale;
         zombie=Instantiate(zombie, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation) as GameObject;
->>>>>>> 80fd02c0a796374d5af3358b4fb8fea0cbecfa92
+*/
     }
 
 }
