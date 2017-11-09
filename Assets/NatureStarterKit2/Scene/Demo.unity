@@ -1690,13 +1690,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerLocation: {fileID: 19115949}
-<<<<<<< HEAD
-  zombie: {fileID: 1259420395}
-  spawnTime: 7
-=======
   zombie: {fileID: 100062, guid: 85b175e2eaff6a54292a8a5c09bf4779, type: 3}
   spawnTime: 3
->>>>>>> 80fd02c0a796374d5af3358b4fb8fea0cbecfa92
   spawnPoints:
   - {fileID: 1340130789}
 --- !u!114 &123690359
@@ -1711,12 +1706,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerLocation: {fileID: 19115949}
-<<<<<<< HEAD
-  zombie: {fileID: 1112050190}
-  spawnTime: 5
-  spawnPoints:
-  - {fileID: 1428757637}
-=======
   zombie: {fileID: 100062, guid: b1b990ec0fafdc64b8f7cad54d283fbc, type: 3}
   spawnTime: 5
   spawnPoints:
@@ -1737,7 +1726,6 @@ MonoBehaviour:
   spawnTime: 7
   spawnPoints:
   - {fileID: 1495616704}
->>>>>>> 80fd02c0a796374d5af3358b4fb8fea0cbecfa92
 --- !u!4 &123941766 stripped
 Transform:
   m_PrefabParentObject: {fileID: 442488, guid: ec78ebca7517fb745a45a931cb06d2bd, type: 2}
