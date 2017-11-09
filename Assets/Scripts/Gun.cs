@@ -7,7 +7,7 @@ public class Gun : MonoBehaviour {
 
     public float damage = 10f;
     public float range = 100f;
-    private int score = 0;
+    private int score = 0; // should be in player controller
     public Camera fpsCam;
     public ParticleSystem muzzleflash;
     Animator anim;
