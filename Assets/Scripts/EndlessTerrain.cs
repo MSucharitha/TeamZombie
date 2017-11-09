@@ -12,6 +12,8 @@ public class EndlessTerrain : MonoBehaviour {
 	public LODInfo[] detailLevels;
 	public static float maxViewDst;
 
+	public int ResourcesRandomSeed = 0;
+	System.Random ResourcesRandom;
 	public EnvResource[] naturalResources;
 	public int avgResourcesPerSquare;
 	public int stdResourcesPerSquare;
@@ -35,6 +37,8 @@ public class EndlessTerrain : MonoBehaviour {
 		maxViewDst = detailLevels [detailLevels.Length - 1].visibleDstThreshold;
 		chunkSize = MapGenerator.mapChunkSize - 1;
 		chunksVisibleInViewDst = Mathf.RoundToInt (maxViewDst / chunkSize);
+
+		ResourcesRandom = new System.Random (ResourcesRandomSeed);
 
 		UpdateVisibleChunks ();
 	}
@@ -84,21 +88,25 @@ public class EndlessTerrain : MonoBehaviour {
 	public void AddRandomResources(Vector3 position) {
 		// Add Trees
 		// TODO: Consider using the Noise class to generate a random terrain for tree placement
-		int numTrees = Random.Range(avgResourcesPerSquare - stdResourcesPerSquare, avgResourcesPerSquare + stdResourcesPerSquare);
+		int numTrees = ResourcesRandom.Next(avgResourcesPerSquare - stdResourcesPerSquare, avgResourcesPerSquare + stdResourcesPerSquare);
 		for (int i = 0; i < numTrees; i++) {
 
 			// Randomly Choose Resource
-			int which_resource = Random.Range(0, naturalResources.Length);
+			int which_resource = ResourcesRandom.Next(0, naturalResources.Length);
 			GameObject obj = naturalResources[which_resource].obj;
 			Quaternion rot = naturalResources[which_resource].rotation;
 
 			// Randomly Place Tree
-			float tree_x_pos = Random.Range(position.x - 120f, position.x + 120f);
-			float tree_z_pos = Random.Range(position.z - 120f, position.z + 120f);
+			float tree_x_pos = (float) (ResourcesRandom.NextDouble() * 240f - 120f + position.x);
+			float tree_z_pos = (float) (ResourcesRandom.NextDouble () * 240f - 120f + position.z);
 
 			// Randomly Rotate Tree
 			// TODO: Consider mesh normals
-			Quaternion rand_rot = Quaternion.Euler(Random.Range(-20f, 20f), Random.Range(0f, 360f), Random.Range(-20, 20f));
+			float treeRot_x = (float) (ResourcesRandom.NextDouble() * 40f - 20f);
+			float treeRot_y = (float) (ResourcesRandom.NextDouble () * 360f);
+			float treeRot_z = (float) (ResourcesRandom.NextDouble () * 40f - 20f);
+
+			Quaternion rand_rot = Quaternion.Euler(treeRot_x, treeRot_y, treeRot_z);
 
 			// Instantiate Object
 			// TODO: Change position.y to the position dictated by the heightMap from MapGenerator
@@ -107,7 +115,7 @@ public class EndlessTerrain : MonoBehaviour {
 
 			// Scale Object with some Randomness
 			Transform resource_transform = added_resource.GetComponent<Transform> ();
-			float obj_scale = naturalResources [which_resource].scale * Random.Range(0.8f, 1.5f);
+			float obj_scale = (float) (naturalResources [which_resource].scale * ResourcesRandom.NextDouble () * 0.7f + 0.8f);
 			resource_transform.localScale = Vector3.one * naturalResources[which_resource].scale;
 
 			// Add Collision Detection
