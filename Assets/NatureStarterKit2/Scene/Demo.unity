@@ -1658,6 +1658,7 @@ GameObject:
   - component: {fileID: 123690357}
   - component: {fileID: 123690358}
   - component: {fileID: 123690359}
+  - component: {fileID: 123690360}
   m_Layer: 0
   m_Name: EnemyManager
   m_TagString: Untagged
@@ -1691,9 +1692,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerLocation: {fileID: 19115949}
   zombie: {fileID: 100062, guid: 85b175e2eaff6a54292a8a5c09bf4779, type: 3}
+  zombies: []
   spawnTime: 3
   spawnPoints:
   - {fileID: 1340130789}
+  zombieArrowPrefab: {fileID: 0}
+  playerArrow: {fileID: 0}
+  maxObjects: 20
+  spawnCount: 0
 --- !u!114 &123690359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1707,9 +1713,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerLocation: {fileID: 19115949}
   zombie: {fileID: 100062, guid: b1b990ec0fafdc64b8f7cad54d283fbc, type: 3}
+  zombies: []
   spawnTime: 5
   spawnPoints:
   - {fileID: 1428757637}
+  zombieArrowPrefab: {fileID: 0}
+  playerArrow: {fileID: 0}
+  maxObjects: 20
+  spawnCount: 0
 --- !u!114 &123690360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1723,9 +1734,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerLocation: {fileID: 19115949}
   zombie: {fileID: 100062, guid: f0fe6fd77b4655541879e38540d45394, type: 3}
+  zombies: []
   spawnTime: 7
   spawnPoints:
   - {fileID: 1495616704}
+  zombieArrowPrefab: {fileID: 0}
+  playerArrow: {fileID: 0}
+  maxObjects: 20
+  spawnCount: 0
 --- !u!4 &123941766 stripped
 Transform:
   m_PrefabParentObject: {fileID: 442488, guid: ec78ebca7517fb745a45a931cb06d2bd, type: 2}
@@ -9550,6 +9566,7 @@ Transform:
   m_Children:
   - {fileID: 772774409}
   - {fileID: 293362421}
+  - {fileID: 1912510664}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14520,7 +14537,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 963839372}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6471, y: 3952.2002, z: -37.6}
+  m_LocalPosition: {x: 7271, y: 7422.2, z: -37.6}
   m_LocalScale: {x: 20, y: 20, z: 20}
   m_Children:
   - {fileID: 167860063}
@@ -25375,6 +25392,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
+--- !u!1 &1912510663
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1912510664}
+  m_Layer: 0
+  m_Name: AllTrees
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1912510664
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1912510663}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 546476206}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1917110079 stripped
 Transform:
   m_PrefabParentObject: {fileID: 429508, guid: 9c74caa742791864f9c678287121e6c9, type: 2}
