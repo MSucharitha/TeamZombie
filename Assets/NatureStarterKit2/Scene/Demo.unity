@@ -272,6 +272,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100062, guid: b1b990ec0fafdc64b8f7cad54d283fbc, type: 3}
+      propertyPath: m_TagString
+      value: zombie
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b1b990ec0fafdc64b8f7cad54d283fbc, type: 3}
   m_IsPrefabParent: 0
@@ -2080,6 +2084,10 @@ Prefab:
     - target: {fileID: 100062, guid: b1b990ec0fafdc64b8f7cad54d283fbc, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100062, guid: b1b990ec0fafdc64b8f7cad54d283fbc, type: 3}
+      propertyPath: m_TagString
+      value: zombie
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b1b990ec0fafdc64b8f7cad54d283fbc, type: 3}
@@ -7400,6 +7408,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100062, guid: 2c985278e3b78344986de6d76af31bba, type: 3}
+      propertyPath: m_TagString
+      value: zombie
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2c985278e3b78344986de6d76af31bba, type: 3}
   m_IsPrefabParent: 0
@@ -9461,6 +9473,7 @@ MonoBehaviour:
   - lod: 2
     visibleDstThreshold: 400
     useForCollider: 0
+  ResourcesRandomSeed: 100
   naturalResources:
   - obj: {fileID: 100000, guid: 9b27b908e66bddb42940797bc06df908, type: 3}
     rotation: {x: 0, y: 0, z: 0, w: 0}
@@ -14537,7 +14550,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 963839372}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7271, y: 7422.2, z: -37.6}
+  m_LocalPosition: {x: 7281, y: 7412.2, z: -37.6}
   m_LocalScale: {x: 20, y: 20, z: 20}
   m_Children:
   - {fileID: 167860063}
@@ -17421,6 +17434,10 @@ Prefab:
       propertyPath: m_Name
       value: Zombie_09_suit_black_aoc
       objectReference: {fileID: 0}
+    - target: {fileID: 100062, guid: 3317d267f18f4a345a71b7690b61564c, type: 3}
+      propertyPath: m_TagString
+      value: zombie
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3317d267f18f4a345a71b7690b61564c, type: 3}
   m_IsPrefabParent: 0
@@ -19481,6 +19498,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100062, guid: 85b175e2eaff6a54292a8a5c09bf4779, type: 3}
+      propertyPath: m_TagString
+      value: zombie
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 85b175e2eaff6a54292a8a5c09bf4779, type: 3}
   m_IsPrefabParent: 0
@@ -20036,6 +20057,10 @@ Prefab:
     - target: {fileID: 100062, guid: 057448ebbc0555648ab134273d77f755, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100062, guid: 057448ebbc0555648ab134273d77f755, type: 3}
+      propertyPath: m_TagString
+      value: zombie
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 057448ebbc0555648ab134273d77f755, type: 3}
@@ -25392,6 +25417,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
+--- !u!114 &1907819786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1907819779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6dc7fcbedfa40f47925d25cf5a1ce4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1912510663
 GameObject:
   m_ObjectHideFlags: 0
@@ -27678,6 +27714,10 @@ Prefab:
     - target: {fileID: 100062, guid: c7008238fcc7cbb47ad075f890e0dbb4, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100062, guid: c7008238fcc7cbb47ad075f890e0dbb4, type: 3}
+      propertyPath: m_TagString
+      value: zombie
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c7008238fcc7cbb47ad075f890e0dbb4, type: 3}
