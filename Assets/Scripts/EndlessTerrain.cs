@@ -103,6 +103,7 @@ public class EndlessTerrain : MonoBehaviour {
 			// Instantiate Object
 			// TODO: Change position.y to the position dictated by the heightMap from MapGenerator
 			GameObject added_resource = Instantiate (obj, new Vector3 (tree_x_pos, position.y, tree_z_pos), rot * rand_rot);
+			added_resource.gameObject.transform.SetParent(GameObject.Find("AllTrees").transform);
 
 			// Scale Object with some Randomness
 			Transform resource_transform = added_resource.GetComponent<Transform> ();
