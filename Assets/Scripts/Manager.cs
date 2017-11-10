@@ -30,9 +30,6 @@ public class Manager : MonoBehaviour
 
     }
 
-
-
-
     void Spawn()
     {
 

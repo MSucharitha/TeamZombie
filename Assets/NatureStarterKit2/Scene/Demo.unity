@@ -1661,7 +1661,6 @@ GameObject:
   m_Component:
   - component: {fileID: 123690357}
   - component: {fileID: 123690359}
-  - component: {fileID: 123690360}
   m_Layer: 0
   m_Name: EnemyManager
   m_TagString: Untagged
@@ -1682,27 +1681,6 @@ Transform:
   m_Father: {fileID: 1140311590}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &123690358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 123690356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e4b3d07f3d0ced4db96891411be0a00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerLocation: {fileID: 19115949}
-  zombie: {fileID: 100062, guid: 85b175e2eaff6a54292a8a5c09bf4779, type: 3}
-  zombies: []
-  spawnTime: 3
-  spawnPoints:
-  - {fileID: 1340130789}
-  zombieArrowPrefab: {fileID: 0}
-  playerArrow: {fileID: 0}
-  maxObjects: 20
-  spawnCount: 0
 --- !u!114 &123690359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1724,27 +1702,6 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 1340130789}
   - {fileID: 1428757637}
-  zombieArrowPrefab: {fileID: 0}
-  playerArrow: {fileID: 0}
-  maxObjects: 20
-  spawnCount: 0
---- !u!114 &123690360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 123690356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e4b3d07f3d0ced4db96891411be0a00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerLocation: {fileID: 19115949}
-  zombie: {fileID: 100062, guid: f0fe6fd77b4655541879e38540d45394, type: 3}
-  zombies: []
-  spawnTime: 7
-  spawnPoints:
-  - {fileID: 1495616704}
   zombieArrowPrefab: {fileID: 0}
   playerArrow: {fileID: 0}
   maxObjects: 20
@@ -14553,7 +14510,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 963839372}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7281, y: 7412.2, z: -37.6}
+  m_LocalPosition: {x: 7681, y: 2392.2, z: -37.6}
   m_LocalScale: {x: 20, y: 20, z: 20}
   m_Children:
   - {fileID: 167860063}
