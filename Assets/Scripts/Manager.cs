@@ -48,8 +48,8 @@ public class Manager : MonoBehaviour
     // Find a random index between zero and one less than the number of spawn points.
         int spawnPointIndex = Random.Range(0, spawnPoints.Length);
 
-        int offsetX = Random.Range(30, 60);
-        int offsetZ = Random.Range(30, 60);
+        int offsetX = Random.Range(50, 100);
+        int offsetZ = Random.Range(50, 100);
         int signX = Random.Range(0, 1);
         if (signX == 0) { signX = -1; };
         int signZ = Random.Range(0, 1);
