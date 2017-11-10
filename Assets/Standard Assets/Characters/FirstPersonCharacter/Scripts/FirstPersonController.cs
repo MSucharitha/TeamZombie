@@ -208,9 +208,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             // Read input
             float horizontal = 0;//CrossPlatformInputManager.GetAxis("Horizontal");
-            float vertical = 234234;
-            //float vertical = 1;//CrossPlatformInputManager.GetAxis("Vertical");
-            //comment
+            float vertical = 1;//CrossPlatformInputManager.GetAxis("Vertical");
+
             bool waswalking = m_IsWalking;
 
 #if !MOBILE_INPUT
