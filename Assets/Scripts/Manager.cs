@@ -70,7 +70,8 @@ public class Manager : MonoBehaviour
         // Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
         //gameobject new_zombie = Instantiate(...);
         // new_zombie.(become child of some object)(parent object name)        
-        Instantiate(zombies[random_zombie], spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+        GameObject newZombie = Instantiate(zombies[random_zombie], spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+        newZombie.tag = "zombie";
         spawnCount++;
 
 //viraj version
