@@ -13,11 +13,16 @@ public class Gun : MonoBehaviour {
     Animator anim;
     string GunName;
     private Text scoreText;
+    public GameObject manager;
+    private Manager zombieManagerScript;
 
     // Use this for initialization
     void Start () {
         scoreText = GameObject.FindGameObjectWithTag("score").GetComponent<Text>();
-
+        if (manager != null)
+        {
+            zombieManagerScript = manager.GetComponent<Manager>();
+        }
         anim = GetComponent<Animator>();
         // GunName = this.ToString();      
     }
@@ -27,7 +32,7 @@ public class Gun : MonoBehaviour {
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetButtonDown("Fire1"))
         {
             Shoot();
-            Debug.Log("Pressed left click. Gun fired.");
+          //  Debug.Log("Pressed left click. Gun fired.");
         }
     }
 
@@ -55,18 +60,21 @@ public class Gun : MonoBehaviour {
 			// Debug.Log (message: hit.transform.name + "Fired");
 			// print (hit.collider.name);
 			// System.Console.WriteLine (hit.collider.name);
-			// System.Console.WriteLine (hit.distance);
-			// System.Console.WriteLine (GunName);
-			// System.Console.WriteLine (hit.transform.name);
-
+		
 			if (HitObj.transform.tag == "zombie") {
 
 				// Activate Zombie Death Animation
 				AnimController2 zombieCtrl = HitObj.GetComponent<AnimController2> ();
 				zombieCtrl.anim.SetInteger ("life", 0);
+                //decrement spawn count 
+                if (zombieManagerScript != null)
+                {
+                    zombieManagerScript.spawnCount--;
+                    Debug.Log("current zombie in the scene: " + zombieManagerScript.spawnCount);
+                }
 
-				//// Legacy code for later consideration of weapon type
-				/*
+                //// Legacy code for later consideration of weapon type
+                /*
 				if (this.gameObject.name.Equals ("Handgun")) {
 
 					otherAnimator.anim.SetInteger ("life", 0);
@@ -85,8 +93,8 @@ public class Gun : MonoBehaviour {
 				}
 				*/
 
-				// Remove Zombie Collider
-				print ("Does it have a collider? " + (HitObj.GetComponent<CapsuleCollider> ().enabled.ToString()));
+                // Remove Zombie Collider
+                print ("Does it have a collider? " + (HitObj.GetComponent<CapsuleCollider> ().enabled.ToString()));
 				HitObj.GetComponent<CapsuleCollider> ().enabled = false;
 
 				//// TODO: Increment Player's Score

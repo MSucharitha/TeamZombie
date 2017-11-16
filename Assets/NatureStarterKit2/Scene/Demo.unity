@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
-  speed: 0.8
+  speed: 2
   rotationSpeed: 75
   playerLocation: {fileID: 0}
 --- !u!1001 &6944750
@@ -270,7 +270,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100062, guid: b1b990ec0fafdc64b8f7cad54d283fbc, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 100062, guid: b1b990ec0fafdc64b8f7cad54d283fbc, type: 3}
       propertyPath: m_TagString
@@ -7384,7 +7384,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400062, guid: 2c985278e3b78344986de6d76af31bba, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 400062, guid: 2c985278e3b78344986de6d76af31bba, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7428,19 +7428,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400062, guid: 2c985278e3b78344986de6d76af31bba, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 400062, guid: 2c985278e3b78344986de6d76af31bba, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 400062, guid: 2c985278e3b78344986de6d76af31bba, type: 3}
       propertyPath: m_LocalScale.z
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 100062, guid: 2c985278e3b78344986de6d76af31bba, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 100062, guid: 2c985278e3b78344986de6d76af31bba, type: 3}
       propertyPath: m_TagString
@@ -11440,7 +11440,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &725592875
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17165,8 +17165,8 @@ Transform:
   - {fileID: 1259420396}
   - {fileID: 556582751}
   - {fileID: 566382458}
-  - {fileID: 1112050191}
   - {fileID: 1217906759}
+  - {fileID: 1112050191}
   - {fileID: 1983018750}
   - {fileID: 5830485}
   - {fileID: 123690357}
@@ -17549,7 +17549,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400062, guid: 3317d267f18f4a345a71b7690b61564c, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: 3317d267f18f4a345a71b7690b61564c, type: 3}
       propertyPath: m_Controller
@@ -20178,7 +20178,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400062, guid: 057448ebbc0555648ab134273d77f755, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: 057448ebbc0555648ab134273d77f755, type: 3}
       propertyPath: m_Controller
@@ -21556,7 +21556,7 @@ MonoBehaviour:
   range: 100
   fpsCam: {fileID: 1627134623}
   muzzleflash: {fileID: 301109012}
-  manager: {fileID: 0}
+  manager: {fileID: 123690356}
 --- !u!4 &1523394458 stripped
 Transform:
   m_PrefabParentObject: {fileID: 442488, guid: ec78ebca7517fb745a45a931cb06d2bd, type: 2}
@@ -26477,7 +26477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
-  speed: 0.8
+  speed: 2
   rotationSpeed: 75
   playerLocation: {fileID: 0}
 --- !u!1001 &1983850967

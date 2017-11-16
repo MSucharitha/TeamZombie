@@ -15,13 +15,23 @@ public class AnimController2 : MonoBehaviour {
     void Start()
     {
         anim = GetComponent<Animator>();
-		// Add a capsule collider to the attached Zombie GameObject
-		CapsuleCollider zombieCollider = gameObject.AddComponent<CapsuleCollider> ();
 
-		// // If Unity properly determines the height and radius, then remove this section
-		zombieCollider.height = 2f;
-		zombieCollider.radius = 0.5f;
-        zombieCollider.center = new Vector3(0f, 0.75f, 0f);
+        // Add a capsule collider to the attached Zombie GameObject
+        CapsuleCollider zombieCollider;
+        if (gameObject.GetComponent<CapsuleCollider>() == null)
+        {
+            zombieCollider = gameObject.AddComponent<CapsuleCollider>();
+
+            // // If Unity properly determines the height and radius, then remove this section
+            zombieCollider.height = 2f;
+            zombieCollider.radius = 0.5f;
+            zombieCollider.center = new Vector3(0f, 0.75f, 0f);
+        }
+        else
+        {
+            zombieCollider = gameObject.GetComponent<CapsuleCollider>();
+            zombieCollider.enabled = true;
+        }
     }
 
     // Update is called once per frame
@@ -44,12 +54,12 @@ public class AnimController2 : MonoBehaviour {
         }*/
     }
 
-    public void shot1() {
+    public void shot1()
+    {
         anim.SetInteger("life", 1);
     }
     public void shot0()
-    {
-        
+    {        
         anim.SetInteger("life", 0);
     }
 
