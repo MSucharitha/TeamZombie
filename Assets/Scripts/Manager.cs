@@ -13,12 +13,12 @@ public class Manager : MonoBehaviour
     public GameObject zombieArrowPrefab;                // The enemy prefab to be spawned.
     private GameObject zombieArrow;
     public Transform playerArrow;
+	public GameObject zombieSpawnsParent;
 
-
-    //maximum allowed number of objects - set in the editor
+    // maximum allowed number of objects - set in the editor
     public int maxObjects = 20;
 
-    //number of objects currently spawned
+    // number of objects currently spawned
     public int spawnCount = 0;
 
     void Start()  
@@ -65,11 +65,24 @@ public class Manager : MonoBehaviour
         spawnPoints[spawnPointIndex].rotation.Set(spawnPoints[spawnPointIndex].rotation.x, angle, spawnPoints[spawnPointIndex].rotation.z, spawnPoints[spawnPointIndex].rotation.w);
         
         // Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
-        //gameobject new_zombie = Instantiate(...);
-        // new_zombie.(become child of some object)(parent object name)        
         GameObject newZombie = Instantiate(zombies[random_zombie], spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
         newZombie.tag = "zombie";
+		newZombie.transform.SetParent (zombieSpawnsParent.transform);
         spawnCount++;
+
+		CapsuleCollider zombieCollider = newZombie.GetComponent<CapsuleCollider> ();
+		if (zombieCollider == null) {
+			// Add a capsule collider to the attached Zombie GameObject
+			zombieCollider = newZombie.AddComponent<CapsuleCollider> ();
+
+			// Set the collider for the zombie's dimensions
+			zombieCollider.height = 2f;
+			zombieCollider.radius = 0.5f;
+			zombieCollider.center = new Vector3 (0f, 0.75f, 0f);
+
+			// Enable the collider
+			zombieCollider.enabled = true;
+		}
 
 //viraj version
 /*
