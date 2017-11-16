@@ -40,7 +40,12 @@ public class AnimController2 : MonoBehaviour {
 			// If the zombie is still alive...
 
 			// Walk forwards along the terrain
-			Vector3 desiredMove = transform.forward * speed * Time.deltaTime;
+			Vector3 desiredMove = Vector3.forward * speed * Time.deltaTime;
+//			RaycastHit hitInfo;
+//			Physics.SphereCast (transform.position, 0.5f, Vector3.down, out hitInfo, 3f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
+//			desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized * speed * Time.deltaTime;
+//			Debug.Log (desiredMove.ToString());
+
 			// TODO: Make the zombie walk along the floor rather than through it
 			transform.Translate (desiredMove, Space.Self);
 
@@ -60,7 +65,7 @@ public class AnimController2 : MonoBehaviour {
 						// (-70f, 70f) is an arbitary range, but assumes that the player is within the zombie's viewport
 
 						// Rotate towards the player gradually
-						float rotateSpeed = Mathf.Min(playerAngle, 2f);
+						float rotateSpeed = Mathf.Min(playerAngle, 5f) * Time.deltaTime;
 						transform.Rotate (0f, rotateSpeed, 0f, Space.Self);
 
 						// TODO: Set animation to aggressive mode
