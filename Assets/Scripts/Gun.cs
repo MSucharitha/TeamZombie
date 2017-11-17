@@ -61,10 +61,11 @@ public class Gun : MonoBehaviour {
 
 			if (HitObj.transform.tag == "zombie") {
 
-				// Activate Zombie Death Animation
+				// Call the shooting function for the zombie
 				AnimController2 zombieCtrl = HitObj.GetComponent<AnimController2> ();
-				zombieCtrl.anim.SetInteger ("life", 0);
-                incrementScore();
+				zombieCtrl.shoot (1);
+				incrementScore();
+
                 //// Legacy code for later consideration of weapon type
                 /*
 				if (this.gameObject.name.Equals ("Handgun")) {
@@ -84,13 +85,6 @@ public class Gun : MonoBehaviour {
 
 				}
 				*/
-
-                // Remove Zombie Collider
-                print ("Does it have a collider? " + (HitObj.GetComponent<CapsuleCollider> ().enabled.ToString()));
-				HitObj.GetComponent<CapsuleCollider> ().enabled = false;
-
-				//// TODO: Increment Player's Score
-				// incrementScore ();
 			}
 		}
     }
