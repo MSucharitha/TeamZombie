@@ -6,24 +6,25 @@ public class Manager : MonoBehaviour
 {
     //  public PlayerHealth playerHealth;       // Reference to the player's heatlh.
     public Transform playerLocation;
-    public GameObject zombie;
     public GameObject[] zombies;                // The enemy prefab to be spawned.
-    public float spawnTime = 5f;            // 2 seconds between each spawn.
+    public float spawnTime;            // 2 seconds between each spawn.
     public Transform[] spawnPoints;         // An array of the spawn points this enemy can spawn from.
     public GameObject zombieArrowPrefab;                // The enemy prefab to be spawned.
     private GameObject zombieArrow;
     public Transform playerArrow;
 	public GameObject zombieSpawnsParent;
 
-    // maximum allowed number of objects - set in the editor
-    public int maxObjects = 20;
+    //maximum allowed number of objects - set in the editor
+    public int maxObjects = 30;
 
     // number of objects currently spawned
     public int spawnCount = 0;
 
+   // public void decrementSpawnCount() { }
+
     void Start()  
     {
-        InvokeRepeating("Spawn", spawnTime, spawnTime);
+        InvokeRepeating("Spawn", 0, spawnTime);
        
         //zombieArrow = Instantiate(zombieArrowPrefab) as GameObject;
        // GameObject obj = Instantiate(prefab, position, rotation) as GameObject;
@@ -45,8 +46,8 @@ public class Manager : MonoBehaviour
     // Find a random index between zero and one less than the number of spawn points.
         int spawnPointIndex = Random.Range(0, spawnPoints.Length);
 
-        int offsetX = Random.Range(50, 100);
-        int offsetZ = Random.Range(50, 100);
+        int offsetX = Random.Range(60, 100);
+        int offsetZ = Random.Range(60, 100);
         int signX = Random.Range(0, 1);
         if (signX == 0) { signX = -1; };
         int signZ = Random.Range(0, 1);
@@ -69,37 +70,21 @@ public class Manager : MonoBehaviour
         newZombie.tag = "zombie";
 		newZombie.transform.SetParent (zombieSpawnsParent.transform);
         spawnCount++;
-
-		CapsuleCollider zombieCollider = newZombie.GetComponent<CapsuleCollider> ();
-		if (zombieCollider == null) {
-			// Add a capsule collider to the attached Zombie GameObject
-			zombieCollider = newZombie.AddComponent<CapsuleCollider> ();
-
-			// Set the collider for the zombie's dimensions
-			zombieCollider.height = 2f;
-			zombieCollider.radius = 0.5f;
-			zombieCollider.center = new Vector3 (0f, 0.75f, 0f);
-
-			// Enable the collider
-			zombieCollider.enabled = true;
-		}
+        Debug.Log("zombie created, " + "current zombie count: " + spawnCount);
 
 //viraj version
-/*
-        //  spawnPoints[spawnPointIndex].rotation.y = playerLocation.rotation.y + 180;
-        Vector3 position = new Vector3(playerLocation.position.x + offsetX * signX, 17.3f, playerLocation.position.z + offsetZ * signZ);
-        //Vector3 directionOfLook = playerLocation.position - position;
-        //Quaternion rotate = Quaternion.LookRotation(directionOfLook);
-        spawnPoints[spawnPointIndex].rotation.Set(spawnPoints[spawnPointIndex].rotation.x, playerLocation.rotation.y + angle, spawnPoints[spawnPointIndex].rotation.z, spawnPoints[spawnPointIndex].rotation.w);
+
+        // spawnPoints[spawnPointIndex].rotation.y = playerLocation.rotation.y + 180;
+        // Vector3 directionOfLook = playerLocation.position - position;
+        // Quaternion rotate = Quaternion.LookRotation(directionOfLook);
 
         //Quaternion rotation = new Quaternion(playerArrow.rotation.x, playerLocation.rotation.y + angle-90, spawnPoints[spawnPointIndex].rotation.z, spawnPoints[spawnPointIndex].rotation.w+90);
         Quaternion rotation = new Quaternion(playerArrow.rotation.x, playerArrow.rotation.y, playerArrow.rotation.z, playerArrow.rotation.w);
-
+        Vector3 position = new Vector3(playerLocation.position.x + offsetX * signX, 17.3f, playerLocation.position.z + offsetZ * signZ);
         // Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
         zombieArrow = Instantiate(zombieArrowPrefab, position, rotation) as GameObject;
         zombieArrow.transform.localScale = playerArrow.localScale;
-        zombie=Instantiate(zombie, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation) as GameObject;
-*/
+       
     }
 
 }
