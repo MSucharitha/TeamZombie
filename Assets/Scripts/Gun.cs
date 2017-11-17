@@ -70,7 +70,7 @@ public class Gun : MonoBehaviour {
                 if (zombieManagerScript != null)
                 {
                     zombieManagerScript.spawnCount--;
-                    Debug.Log("current zombie in the scene: " + zombieManagerScript.spawnCount);
+                    Debug.Log("zombie killed, " + "current zombie count: " + zombieManagerScript.spawnCount);
                 }
 
                 //// Legacy code for later consideration of weapon type
