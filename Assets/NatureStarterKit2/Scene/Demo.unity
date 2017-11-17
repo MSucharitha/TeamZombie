@@ -1695,15 +1695,16 @@ MonoBehaviour:
   playerLocation: {fileID: 19115949}
   zombie: {fileID: 556582750}
   zombies:
-  - {fileID: 1259420395}
-  - {fileID: 556582750}
-  - {fileID: 566382457}
+  - {fileID: 1224690645136348, guid: b08311fb2e39bfa40abca971f57b85b7, type: 2}
+  - {fileID: 1452933621827218, guid: 5da7c20046e0f354694fa1715f982ac1, type: 2}
+  - {fileID: 1725201473607718, guid: ea1c69dbad67fa544ae16be565a6a240, type: 2}
   spawnTime: 5
   spawnPoints:
   - {fileID: 1340130789}
   - {fileID: 1428757637}
   zombieArrowPrefab: {fileID: 0}
   playerArrow: {fileID: 0}
+  zombieSpawnsParent: {fileID: 757516117}
   maxObjects: 20
   spawnCount: 0
 --- !u!4 &123941766 stripped
@@ -19261,6 +19262,34 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
   m_PrefabInternal: {fileID: 1907819778}
+--- !u!1 &757516117
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 757516118}
+  m_Layer: 0
+  m_Name: AllZombies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &757516118
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 757516117}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1140311590}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &758061364
 Prefab:
   m_ObjectHideFlags: 0
@@ -19686,7 +19715,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 774718668}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6271, y: 5882.2, z: -37.6}
+  m_LocalPosition: {x: 8291, y: 5672.2, z: -37.6}
   m_LocalScale: {x: 20, y: 20, z: 20}
   m_Children:
   - {fileID: 1040315113}
@@ -21971,7 +22000,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 963839372}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6271, y: 5882.2, z: -37.6}
+  m_LocalPosition: {x: 8291, y: 5672.2, z: -37.6}
   m_LocalScale: {x: 20, y: 20, z: 20}
   m_Children:
   - {fileID: 167860063}
@@ -24517,6 +24546,7 @@ Transform:
   - {fileID: 1340130789}
   - {fileID: 1428757637}
   - {fileID: 1495616704}
+  - {fileID: 757516118}
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
