@@ -1609,8 +1609,9 @@ MonoBehaviour:
   - {fileID: 1340130789}
   - {fileID: 1428757637}
   - {fileID: 1495616704}
-  zombieArrowPrefab: {fileID: 0}
-  playerArrow: {fileID: 0}
+  zombieArrowPrefab: {fileID: 1391849889077330, guid: 1cf97a372b7618f4887990e0745f1146,
+    type: 2}
+  playerArrow: {fileID: 1928571091}
   zombieSpawnsParent: {fileID: 757516117}
   maxObjects: 20
   spawnCount: 0
