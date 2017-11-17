@@ -12,12 +12,12 @@ public class Manager : MonoBehaviour
     public GameObject zombieArrowPrefab;                // The enemy prefab to be spawned.
     private GameObject zombieArrow;
     public Transform playerArrow;
-
+	public GameObject zombieSpawnsParent;
 
     //maximum allowed number of objects - set in the editor
     public int maxObjects = 30;
 
-    //number of objects currently spawned
+    // number of objects currently spawned
     public int spawnCount = 0;
 
    // public void decrementSpawnCount() { }
@@ -66,26 +66,24 @@ public class Manager : MonoBehaviour
         spawnPoints[spawnPointIndex].rotation.Set(spawnPoints[spawnPointIndex].rotation.x, angle, spawnPoints[spawnPointIndex].rotation.z, spawnPoints[spawnPointIndex].rotation.w);
         
         // Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
-        //gameobject new_zombie = Instantiate(...);
-        // new_zombie.(become child of some object)(parent object name)        
         GameObject newZombie = Instantiate(zombies[random_zombie], spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
         newZombie.tag = "zombie";
+		newZombie.transform.SetParent (zombieSpawnsParent.transform);
         spawnCount++;
         Debug.Log("zombie created, " + "current zombie count: " + spawnCount);
 
+//viraj version
 
-        //viraj version
-
-
-        //Vector3 directionOfLook = playerLocation.position - position;
-        //Quaternion rotate = Quaternion.LookRotation(directionOfLook);
+        // spawnPoints[spawnPointIndex].rotation.y = playerLocation.rotation.y + 180;
+        // Vector3 directionOfLook = playerLocation.position - position;
+        // Quaternion rotate = Quaternion.LookRotation(directionOfLook);
 
         //Quaternion rotation = new Quaternion(playerArrow.rotation.x, playerLocation.rotation.y + angle-90, spawnPoints[spawnPointIndex].rotation.z, spawnPoints[spawnPointIndex].rotation.w+90);
-        //need this later      Quaternion rotation = new Quaternion(playerArrow.rotation.x, playerArrow.rotation.y, playerArrow.rotation.z, playerArrow.rotation.w);
+        Quaternion rotation = new Quaternion(playerArrow.rotation.x, playerArrow.rotation.y, playerArrow.rotation.z, playerArrow.rotation.w);
         Vector3 position = new Vector3(playerLocation.position.x + offsetX * signX, 17.3f, playerLocation.position.z + offsetZ * signZ);
         // Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
-        //need this later     zombieArrow = Instantiate(zombieArrowPrefab, position, rotation) as GameObject;
-        //need this later    zombieArrow.transform.localScale = playerArrow.localScale;
+        zombieArrow = Instantiate(zombieArrowPrefab, position, rotation) as GameObject;
+        zombieArrow.transform.localScale = playerArrow.localScale;
        
     }
 
