@@ -1693,7 +1693,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerLocation: {fileID: 19115949}
-  zombie: {fileID: 556582750}
   zombies:
   - {fileID: 1224690645136348, guid: b08311fb2e39bfa40abca971f57b85b7, type: 2}
   - {fileID: 1452933621827218, guid: 5da7c20046e0f354694fa1715f982ac1, type: 2}
@@ -2425,6 +2424,7 @@ MonoBehaviour:
   range: 100
   fpsCam: {fileID: 1627134623}
   muzzleflash: {fileID: 714560892}
+  manager: {fileID: 0}
 --- !u!1001 &181217523
 Prefab:
   m_ObjectHideFlags: 0
@@ -28044,6 +28044,7 @@ MonoBehaviour:
   range: 100
   fpsCam: {fileID: 1627134623}
   muzzleflash: {fileID: 582203255}
+  manager: {fileID: 0}
 --- !u!1001 &1423085593
 Prefab:
   m_ObjectHideFlags: 0
@@ -29023,6 +29024,7 @@ MonoBehaviour:
   range: 100
   fpsCam: {fileID: 1627134623}
   muzzleflash: {fileID: 301109012}
+  manager: {fileID: 1511657724}
 --- !u!4 &1523394458 stripped
 Transform:
   m_PrefabParentObject: {fileID: 442488, guid: ec78ebca7517fb745a45a931cb06d2bd, type: 2}
