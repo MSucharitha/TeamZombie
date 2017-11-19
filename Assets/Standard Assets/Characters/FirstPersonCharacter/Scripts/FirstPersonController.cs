@@ -41,6 +41,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_NextStep;
         private bool m_Jumping;
         private AudioSource m_AudioSource;
+        public GameObject playerArrow;
         [SerializeField] public float m_RenderScale;
 
 
@@ -84,6 +85,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
+            playerArrow.transform.rotation = new Quaternion(Camera.main.transform.rotation.y, Camera.main.transform.rotation.y, 0, 0);
+
         }
 
 
