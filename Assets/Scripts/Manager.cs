@@ -68,23 +68,26 @@ public class Manager : MonoBehaviour
         // Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
         GameObject newZombie = Instantiate(zombies[random_zombie], spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
         newZombie.tag = "zombie";
+        
 		newZombie.transform.SetParent (zombieSpawnsParent.transform);
         spawnCount++;
         Debug.Log("zombie created, " + "current zombie count: " + spawnCount);
+        zombieArrow = Instantiate(zombieArrowPrefab, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation) as GameObject;
+        zombieArrow.transform.localScale = playerArrow.localScale;
+        zombieArrow.transform.parent = newZombie.transform;
 
-//viraj version
+        //viraj version
 
         // spawnPoints[spawnPointIndex].rotation.y = playerLocation.rotation.y + 180;
         // Vector3 directionOfLook = playerLocation.position - position;
         // Quaternion rotate = Quaternion.LookRotation(directionOfLook);
 
         //Quaternion rotation = new Quaternion(playerArrow.rotation.x, playerLocation.rotation.y + angle-90, spawnPoints[spawnPointIndex].rotation.z, spawnPoints[spawnPointIndex].rotation.w+90);
-        Quaternion rotation = new Quaternion(0,0,0,0);
-        Vector3 position = new Vector3(playerLocation.position.x + offsetX * signX, 17.3f, playerLocation.position.z + offsetZ * signZ);
+        //Quaternion rotation = new Quaternion(0,0,0,0);
+        //Vector3 position = new Vector3(playerLocation.position.x + offsetX * signX, 17.3f, playerLocation.position.z + offsetZ * signZ);
         // Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
-        zombieArrow = Instantiate(zombieArrowPrefab, position, rotation) as GameObject;
-        zombieArrow.transform.localScale = playerArrow.localScale;
-       
+
+
     }
 
 }
