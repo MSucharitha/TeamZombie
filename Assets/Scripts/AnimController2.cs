@@ -65,7 +65,7 @@ public class AnimController2 : MonoBehaviour {
 						// (-70f, 70f) is an arbitary range, but assumes that the player is within the zombie's viewport
 
 						// Rotate towards the player gradually
-						float rotateSpeed = Mathf.Min(playerAngle, 5f) * Time.deltaTime;
+						float rotateSpeed = Mathf.Min(Mathf.Abs(playerAngle), 5f) * playerAngleSign * Time.deltaTime;
 						transform.Rotate (0f, rotateSpeed, 0f, Space.Self);
 
 						// TODO: Set animation to aggressive mode
