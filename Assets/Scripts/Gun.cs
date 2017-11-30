@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR;
 
 public class Gun : MonoBehaviour {
 
@@ -15,6 +16,13 @@ public class Gun : MonoBehaviour {
     private Text scoreText;
     public GameObject manager;
     private Manager zombieManagerScript;
+
+	private SteamVR_TrackedObject trackedObject;
+	private SteamVR_Controller.Device device;
+
+	void Awake() {
+		trackedObject = GetComponent<SteamVR_TrackedObject> ();
+	}
 
     // Use this for initialization
     void Start () {
@@ -33,7 +41,12 @@ public class Gun : MonoBehaviour {
         {
             Shoot();
           //  Debug.Log("Pressed left click. Gun fired.");
-        }
+		} else if (XRSettings.isDeviceActive) {
+			device = SteamVR_Controller.Input ((int)trackedObject.index);
+			if (device.GetTouchUp (SteamVR_Controller.ButtonMask.Trigger)) {
+				Shoot ();
+			}
+		}
     }
 
     public int getScore() {

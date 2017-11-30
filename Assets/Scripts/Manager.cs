@@ -70,7 +70,7 @@ public class Manager : MonoBehaviour
         newZombie.tag = "zombie";
 		newZombie.transform.SetParent (zombieSpawnsParent.transform);
         spawnCount++;
-        Debug.Log("zombie created, " + "current zombie count: " + spawnCount);
+//        Debug.Log("zombie created, " + "current zombie count: " + spawnCount);
 
 //viraj version
 
