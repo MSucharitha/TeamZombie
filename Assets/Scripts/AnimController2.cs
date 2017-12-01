@@ -12,7 +12,8 @@ public class AnimController2 : MonoBehaviour {
     public Transform playerLocation;
 	static float playerDistanceThreshold = 50f;
 	static float zombieDeathTimeout = 5f;
-    
+    private GameObject player;
+    private Text scoreText;
     // Use this for initialization
     void Start()
     {
@@ -30,6 +31,8 @@ public class AnimController2 : MonoBehaviour {
 			// Enable the collider
 			zombieCollider.enabled = true;
 		}
+        player = GameObject.FindWithTag("Player");
+        scoreText = GameObject.FindGameObjectWithTag("score").GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -50,7 +53,7 @@ public class AnimController2 : MonoBehaviour {
 			transform.Translate (desiredMove, Space.Self);
 
 			// Rotate towards player only if the player is near and within viewing range
-			GameObject player = GameObject.FindWithTag("Player");
+			
 			if (player != null) {
 
 				// Check if player is near the zombie
@@ -95,7 +98,18 @@ public class AnimController2 : MonoBehaviour {
 
 			// Queue Zombie Object to disappear from screen after a set amount of time
 			Destroy(this.gameObject, zombieDeathTimeout);
-		}
+
+            //increment score here
+            if (player != null)
+            {
+                PlayerController playerScript = player.GetComponent<PlayerController>();
+                if (playerScript != null && scoreText!= null) {
+                    playerScript.score += 100;
+                    scoreText.text = "Score: " + playerScript.score;
+                    Debug.Log("current score: " + playerScript.score);
+                }
+            }
+        }
 	}
 
     public void shot1() {
