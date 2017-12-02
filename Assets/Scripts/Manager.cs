@@ -14,6 +14,8 @@ public class Manager : MonoBehaviour
     public Transform playerArrow;
 	public GameObject zombieSpawnsParent;
 
+	public GameObject healthBar;
+
     //maximum allowed number of objects - set in the editor
     public int maxObjects = 30;
 
@@ -43,38 +45,52 @@ public class Manager : MonoBehaviour
         
     void SpawnEnemy(){
 
-    // Find a random index between zero and one less than the number of spawn points.
-        int spawnPointIndex = Random.Range(0, spawnPoints.Length);
+		// Find a random index between zero and one less than the number of spawn points.
+		int spawnPointIndex = Random.Range (0, spawnPoints.Length);
 
-        int offsetX = Random.Range(60, 100);
-        int offsetZ = Random.Range(60, 100);
-        int signX = Random.Range(0, 1);
-        if (signX == 0) { signX = -1; };
-        int signZ = Random.Range(0, 1);
-        if (signZ == 0) { signZ = -1; };
-        int random_zombie = Random.Range(0, zombies.Length);
+		int offsetX = Random.Range (60, 100);
+		int offsetZ = Random.Range (60, 100);
+		int signX = Random.Range (0, 1);
+		if (signX == 0) {
+			signX = -1;
+		}
+		;
+		int signZ = Random.Range (0, 1);
+		if (signZ == 0) {
+			signZ = -1;
+		}
+		;
+		int random_zombie = Random.Range (0, zombies.Length);
 
-        int random_angle = Random.Range(1, 360);
+		int random_angle = Random.Range (1, 360);
 
-        // Jessie original version
+		// Jessie original version
         
-        spawnPoints[spawnPointIndex].position = new Vector3(playerLocation.position.x + offsetX * signX, 0, playerLocation.position.z + offsetZ * signZ);
+		spawnPoints [spawnPointIndex].position = new Vector3 (playerLocation.position.x + offsetX * signX, 0, playerLocation.position.z + offsetZ * signZ);
 
-       // Vector3 targetDir = target.position - transform.position;
-        Vector3 targetDir = playerLocation.position - spawnPoints[spawnPointIndex].position;
-        float angle = Vector3.Angle(targetDir, transform.forward);
-        spawnPoints[spawnPointIndex].rotation.Set(spawnPoints[spawnPointIndex].rotation.x, angle, spawnPoints[spawnPointIndex].rotation.z, spawnPoints[spawnPointIndex].rotation.w);
+		// Vector3 targetDir = target.position - transform.position;
+		Vector3 targetDir = playerLocation.position - spawnPoints [spawnPointIndex].position;
+		float angle = Vector3.Angle (targetDir, transform.forward);
+		spawnPoints [spawnPointIndex].rotation.Set (spawnPoints [spawnPointIndex].rotation.x, angle, spawnPoints [spawnPointIndex].rotation.z, spawnPoints [spawnPointIndex].rotation.w);
         
-        // Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
-        GameObject newZombie = Instantiate(zombies[random_zombie], spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
-        newZombie.tag = "zombie";
+		// Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
+		GameObject newZombie = Instantiate (zombies [random_zombie], spawnPoints [spawnPointIndex].position, spawnPoints [spawnPointIndex].rotation);
+		newZombie.tag = "zombie";
         
 		newZombie.transform.SetParent (zombieSpawnsParent.transform);
-        spawnCount++;
+		spawnCount++;
+
+//		// Add resource manager to remove zombies that are too far away from the player
+//		ResourceManager rsrcManager = newZombie.AddComponent<ResourceManager> ();
+//		rsrcManager.dstThreshold = 100f;
+
+		GameObject zombieHealthBar = Instantiate (healthBar, (Vector3.up * 1.6f * newZombie.transform.localScale.x), Quaternion.Euler(Vector3.zero));
+		zombieHealthBar.transform.parent = newZombie.transform;
+		zombieHealthBar.transform.Translate (newZombie.transform.position);
 
         Debug.Log("zombie created, " + "current zombie count: " + spawnCount);
         zombieArrow = Instantiate(zombieArrowPrefab, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation) as GameObject;
-        zombieArrow.transform.localScale = playerArrow.localScale;
+        zombieArrow.transform.localScale = playerArrow.localScale * 0.10f;
         zombieArrow.transform.parent = newZombie.transform;
 
         //viraj version
