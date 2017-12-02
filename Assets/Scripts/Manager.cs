@@ -71,6 +71,7 @@ public class Manager : MonoBehaviour
         
 		newZombie.transform.SetParent (zombieSpawnsParent.transform);
         spawnCount++;
+
         Debug.Log("zombie created, " + "current zombie count: " + spawnCount);
         zombieArrow = Instantiate(zombieArrowPrefab, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation) as GameObject;
         zombieArrow.transform.localScale = playerArrow.localScale;

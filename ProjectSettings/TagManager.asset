@@ -6,6 +6,7 @@ TagManager:
   tags:
   - score
   - zombie
+  - terrain
   layers:
   - Default
   - TransparentFX

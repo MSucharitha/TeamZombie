@@ -116,7 +116,7 @@ public class EndlessTerrain : MonoBehaviour {
 			// Scale Object with some Randomness
 			Transform resource_transform = added_resource.GetComponent<Transform> ();
 			float obj_scale = (float) (naturalResources [which_resource].scale * ResourcesRandom.NextDouble () * 0.7f + 0.8f);
-			resource_transform.localScale = Vector3.one * naturalResources[which_resource].scale;
+			resource_transform.localScale = Vector3.one * naturalResources[which_resource].scale * 0.75f;
 
 			// Add Collision Detection
 			// Not the desired option, but is the best choice
