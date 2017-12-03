@@ -96,7 +96,6 @@ public class LevelManager : MonoBehaviour {
             scoreText = scoreObject.GetComponent<Text>();
         }
         scoreText.text = "Score: " + this.score;
-        Debug.Log("current score: " + this.score);
 
 		if (this.score > 1000 * this.level) {
 			StartNewLevel();
@@ -108,7 +107,6 @@ public class LevelManager : MonoBehaviour {
 
 		}
     }
-
 }
 
 [System.Serializable]

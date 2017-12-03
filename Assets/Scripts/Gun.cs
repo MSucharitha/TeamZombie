@@ -6,7 +6,7 @@ using UnityEngine.XR;
 
 public class Gun : MonoBehaviour {
 
-    public int max_damage = 5;
+    public int max_damage = 3;
     public float max_range = 100f;
     public Camera fpsCam;
     public ParticleSystem muzzleflash;
