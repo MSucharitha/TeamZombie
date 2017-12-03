@@ -20,9 +20,14 @@ public class AnimController2 : MonoBehaviour {
     private Manager zombieManagerScript;
     private CharacterController zombieController;
 
+	public GameObject healthbarObject;
+
+	private float lastShootTime = -100f;
+
     void Start()
     {
         anim = GetComponent<Animator>();
+		healthbarObject.GetComponent<HealthUI> ().SetHealth(anim.GetInteger ("life"));
 
         // Set a character controller if necessary
         zombieController = GetComponent<CharacterController>();
@@ -30,7 +35,7 @@ public class AnimController2 : MonoBehaviour {
         {
             zombieController = gameObject.AddComponent<CharacterController>();
             
-                       // Set Character Controller properties for the zombie
+            // Set Character Controller properties for the zombie
             zombieController.center = new Vector3(0f, 0.75f, 0f);
             zombieController.radius = 0.5f;
             zombieController.height = 1.6f;
@@ -94,6 +99,11 @@ public class AnimController2 : MonoBehaviour {
 
             }
         }
+
+		float currTime = Time.time;
+		if (currTime - lastShootTime > 5f || anim.GetInteger("life") <= 0) {
+			healthbarObject.GetComponent<HealthUI> ().Hide ();
+		}
     }
 
 	public void shoot(int damage) {
@@ -132,6 +142,16 @@ public class AnimController2 : MonoBehaviour {
 
             //TODO different zombie type for different points
         }
+
+
+		// Update health bar and show
+		float currTime = Time.time;
+		if (currTime - lastShootTime > 5f) {
+			lastShootTime = currTime;
+			healthbarObject.GetComponent<HealthUI> ().Show ();
+		}
+		healthbarObject.GetComponent<HealthUI> ().UpdateHealth(HP);
+
 	}
 
     public void shot1() {

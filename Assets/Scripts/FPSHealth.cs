@@ -13,7 +13,7 @@ public class FPSHealth : MonoBehaviour {
         if (col.gameObject.GetComponent<AnimController2>() != null)
         {
             Debug.Log("Player-Zombie collision");
-            SceneManager.LoadScene(index);
+//            SceneManager.LoadScene(index);
         }
     }
 }

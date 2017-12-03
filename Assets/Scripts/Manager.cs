@@ -90,9 +90,16 @@ public class Manager : MonoBehaviour
 //		ResourceManager rsrcManager = newZombie.AddComponent<ResourceManager> ();
 //		rsrcManager.dstThreshold = 100f;
         
+		// Add a health bar to each zombie
         GameObject zombieHealthBar = Instantiate(healthBar, (Vector3.up * 1.6f * newZombie.transform.localScale.x), Quaternion.Euler(Vector3.zero));
         zombieHealthBar.transform.parent = newZombie.transform;
         zombieHealthBar.transform.Translate(newZombie.transform.position);
+
+		zombieHealthBar = zombieHealthBar.transform.GetChild (0).gameObject;
+
+		AnimController2 zombieAnimController = newZombie.GetComponent<AnimController2> ();
+		zombieAnimController.healthbarObject = zombieHealthBar;
+		zombieHealthBar.GetComponent<HealthUI> ().Hide ();
 
         Debug.Log("zombie created, " + "current zombie count: " + this.spawnCount);
 		zombieArrow = Instantiate (zombieArrowPrefab, newZombie.transform.position, newZombie.transform.rotation, newZombie.transform ) as GameObject;

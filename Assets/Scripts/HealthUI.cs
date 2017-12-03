@@ -18,6 +18,9 @@ public class HealthUI : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		fillImage = fill.GetComponent<Image> ();
+		if (fillImage == null) {
+			Debug.Log ("ERROR! Fill image file not found!");
+		}
 		maxHealth = 10;
 		currHealth = maxHealth;
 
@@ -35,12 +38,12 @@ public class HealthUI : MonoBehaviour {
 
 	}
 
-	void SetHealth(int health) {
+	public void SetHealth(int health) {
 		maxHealth = health;
 		currHealth = maxHealth;
 	}
 
-	void UpdateHealth(int health) {
+	public void UpdateHealth(int health) {
 		currHealth = health;
 
 		// Guarantee that the health never goes above 1 or below 0
@@ -60,5 +63,12 @@ public class HealthUI : MonoBehaviour {
 
 		// Optional: Add Health Bar Text
 		// Update the health bar text
+	}
+
+	public void Show() {
+		gameObject.SetActive (true);
+	}
+	public void Hide() {
+		gameObject.SetActive (false);
 	}
 }

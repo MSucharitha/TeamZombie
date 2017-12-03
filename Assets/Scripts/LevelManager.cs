@@ -12,7 +12,8 @@ public class LevelManager : MonoBehaviour {
 	public LevelProps[] levelProps;
 	private float levelStartTime;
 	private float levelTimeBonusLimit;
-	private int numZombiesInLevel;
+	private int totalZombiesKilled;
+	private int maxNumZombiesInLevel;
 
     // Managers and GameObjects necessary to run this
     private GameObject scoreObject;
@@ -30,6 +31,7 @@ public class LevelManager : MonoBehaviour {
         }
 
 		level = 0;
+		totalZombiesKilled = 0;
 		StartNewLevel ();
     }
 	
@@ -40,31 +42,33 @@ public class LevelManager : MonoBehaviour {
 
 	void StartNewLevel() {
 		level += 1;
+		totalZombiesKilled += numZombiesKilled;
+		numZombiesKilled = 0;
 
         // Reset Zombie Spawn Point and Increase Num Zombie Spawns
         if (zombieManagerScript != null) {
-			numZombiesInLevel = 30 + (level - 1) * 20;
-            zombieManagerScript.setMaxObjects(numZombiesInLevel);
+			maxNumZombiesInLevel = 30 + (level - 1) * 20;
+            zombieManagerScript.setMaxObjects(maxNumZombiesInLevel);
         }
         Debug.Log("current level: " + this.level);
 
 		// Get current time for a potential time kill bonus
 		levelStartTime = Time.time;
-		levelTimeBonusLimit = (float) numZombiesInLevel;
+		levelTimeBonusLimit = (float) maxNumZombiesInLevel;
 	}
 
 	public void OnZombieKill() {
 		// Increment the zombies killed
 		numZombiesKilled += 1;
 
-		if (numZombiesKilled >= numZombiesInLevel) {
+		if (numZombiesKilled >= maxNumZombiesInLevel) {
 
 			string levelFinishedMessage = "Completed level " + level.ToString() + ". ";
 
 			// If zombies killed in record time, then add bonus
 			float levelTimeFinished = Time.time - levelStartTime;
 			if (levelTimeFinished <= levelTimeBonusLimit) {
-				int bonus = numZombiesInLevel * 10;
+				int bonus = maxNumZombiesInLevel * 10;
 				incrementScore (bonus);
 				levelFinishedMessage += "Zombie kill time bonus: +" + bonus.ToString();
 			}
@@ -81,13 +85,6 @@ public class LevelManager : MonoBehaviour {
 
 	void DisplayMessage(string msg) {
 		// TODO: Display a notification
-	}
-
-	[System.Serializable]
-	public struct LevelProps {
-		public int maxZombies;
-		public int zombieKillRequirement;
-		public int gunsAvailable;
 	}
 
     public void incrementScore(int points)
@@ -112,4 +109,11 @@ public class LevelManager : MonoBehaviour {
 		}
     }
 
+}
+
+[System.Serializable]
+public struct LevelProps {
+//	public int maxZombies;
+//	public int zombieKillRequirement;
+	public int gunsAvailable;
 }
