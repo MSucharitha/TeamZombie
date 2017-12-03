@@ -9,22 +9,28 @@ public class Gun : MonoBehaviour {
     public float max_range = 100f;
     public Camera fpsCam;
     public ParticleSystem muzzleflash;
-    Animator anim;
+    private Animator anim;
     string GunName;
     private Text scoreText;
-    private GameObject manager;
+    private GameObject zombieManager;
     private GameObject levelManager;
     private Manager zombieManagerScript;
     private LevelManager levelManagerScript;
-    // Use this for initialization
+    
     void Start () {
         scoreText = GameObject.FindGameObjectWithTag("score").GetComponent<Text>();
-        levelManager = GameObject.FindWithTag("System"); 
-        if (manager != null)
+        levelManager = GameObject.FindWithTag("system");
+        if (levelManager != null)
         {
-            zombieManagerScript = manager.GetComponent<Manager>();
+            levelManagerScript = levelManager.GetComponent<LevelManager>();
+        }
+        zombieManager = GameObject.Find("EnemyManager");
+        if (zombieManager != null)
+        {
+            zombieManagerScript = zombieManager.GetComponent<Manager>();
         }
         anim = GetComponent<Animator>();
+
         // GunName = this.ToString();           
        
     }
@@ -38,16 +44,7 @@ public class Gun : MonoBehaviour {
         }
     }
 
-    private void incrementScore(int points) {
-        if (levelManager != null)
-        {
-            levelManagerScript = levelManager.GetComponent<LevelManager>();
-            levelManagerScript.score += points;
-            scoreText.text = "Score: " + levelManagerScript.score;
-            Debug.Log("current score: " + levelManagerScript.score);
-        }
-    }
-
+    
     void Shoot()
     {
         muzzleflash.Play();
@@ -91,7 +88,7 @@ public class Gun : MonoBehaviour {
                 Debug.Log("damage: " + shot_damage);
                 zombieCtrl.shoot (shot_damage);
                 //increment score, or increment when zombie is dead???
-				incrementScore(shot_damage*10);
+                levelManagerScript.incrementScore(shot_damage*10);
 
                 //// Legacy code for later consideration of weapon type
                 /*

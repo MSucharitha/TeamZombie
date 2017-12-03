@@ -9123,7 +9123,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numZombiesKilled: 0
-  score: 0
   playerHealth: 10
   level: 0
   levelProps: []
