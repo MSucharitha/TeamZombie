@@ -15,10 +15,10 @@ public class Gun : MonoBehaviour {
     private Text scoreText;    
     private GameObject levelManager;   
     private LevelManager levelManagerScript;
-    
+
     void Start () {
         scoreText = GameObject.FindGameObjectWithTag("score").GetComponent<Text>();
-        levelManager = GameObject.Find("LevelManager");
+        levelManager = GameObject.FindWithTag("system");
         if (levelManager != null)
         {
             levelManagerScript = levelManager.GetComponent<LevelManager>();
