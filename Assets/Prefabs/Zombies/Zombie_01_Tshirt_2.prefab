@@ -1031,7 +1031,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
-  speed: 0.8
+  speed: 3
   rotationSpeed: 75
   playerLocation: {fileID: 0}
 --- !u!137 &137249590939993438
