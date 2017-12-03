@@ -11,15 +11,41 @@ labels:
 - launcher
 timeCreated: 18446744011573954816
 ModelImporter:
-  serializedVersion: 21
+  serializedVersion: 22
   fileIDToRecycleName:
+    100000: //RootNode
+    100002: M4_Magazine
+    100004: M4_Shell
+    400000: //RootNode
+    400002: M4_Magazine
+    400004: M4_Shell
+    2300000: //RootNode
+    2300002: M4_Magazine
+    2300004: M4_Shell
+    3300000: //RootNode
+    3300002: M4_Magazine
+    3300004: M4_Shell
     4300000: M4_Gun
     4300002: M4_Magazine
     4300004: M4_Shell
+    7400000: Shoot
+    11100000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rocket_Shell_Shell
+    second: {fileID: 2100000, guid: 4e14d9308e8d24045bbb309ce27623ce, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: blinn1
+    second: {fileID: 2100000, guid: 6c915dd849c8458489dd24ab573c660d, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -32,6 +58,7 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -45,7 +72,7 @@ ModelImporter:
       takeName: 
       firstFrame: 1
       lastFrame: 6
-      wrapMode: 2
+      wrapMode: 1
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0

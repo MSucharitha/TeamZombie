@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR;
 
 public class Gun : MonoBehaviour {
 
@@ -16,7 +17,12 @@ public class Gun : MonoBehaviour {
     private GameObject levelManager;
     private Manager zombieManagerScript;
     private LevelManager levelManagerScript;
+<<<<<<< HEAD
     
+=======
+
+    // Use this for initialization
+>>>>>>> b8405ee18f44a26c6bc12fce465026c82b282557
     void Start () {
         scoreText = GameObject.FindGameObjectWithTag("score").GetComponent<Text>();
         levelManager = GameObject.FindWithTag("system");
