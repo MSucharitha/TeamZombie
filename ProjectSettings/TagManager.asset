@@ -8,6 +8,10 @@ TagManager:
   - zombie
   - system
   - terrain
+  - play
+  - instructions
+  - exit
+  - back
   layers:
   - Default
   - TransparentFX
