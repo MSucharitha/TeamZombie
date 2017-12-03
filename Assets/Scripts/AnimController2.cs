@@ -16,22 +16,26 @@ public class AnimController2 : MonoBehaviour {
     private Text scoreText;
     private GameObject levelManager;   
     private LevelManager levelManagerScript;
+
+    private CharacterController zombieController;
+
     void Start()
     {
         anim = GetComponent<Animator>();
-		CapsuleCollider zombieCollider = GetComponent<CapsuleCollider> ();
-		if (zombieCollider == null) {
-			// Add a capsule collider to the attached Zombie GameObject
-			zombieCollider = gameObject.AddComponent<CapsuleCollider> ();
 
-			// Set the collider for the zombie's dimensions
-			zombieCollider.height = 2f;
-			zombieCollider.radius = 0.5f;
-			zombieCollider.center = new Vector3 (0f, 0.75f, 0f);
+        // Set a character controller if necessary
+        zombieController = GetComponent<CharacterController>();
+        if (zombieController == null)
+        {
+            zombieController = gameObject.AddComponent<CharacterController>();
+            
+                       // Set Character Controller properties for the zombie
+            zombieController.center = new Vector3(0f, 0.75f, 0f);
+            zombieController.radius = 0.5f;
+            zombieController.height = 1.6f;
+        }
 
-			// Enable the collider
-			zombieCollider.enabled = true;
-		}
+        // Find player point-of-reference for movement script 
         player = GameObject.FindWithTag("Player");
         scoreText = GameObject.FindGameObjectWithTag("score").GetComponent<Text>();
         levelManager = GameObject.Find("LevelManager");
@@ -46,46 +50,42 @@ public class AnimController2 : MonoBehaviour {
 		bool zombieAlive = anim.GetInteger ("life") > 0;
 
         if(zombieAlive) {
-			// If the zombie is still alive...
+            // If the zombie is still alive...
 
-			// Walk forwards along the terrain
-			Vector3 desiredMove = Vector3.forward * speed * Time.deltaTime;
-//			RaycastHit hitInfo;
-//			Physics.SphereCast (transform.position, 0.5f, Vector3.down, out hitInfo, 3f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
-//			desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized * speed * Time.deltaTime;
-//			Debug.Log (desiredMove.ToString());
+            // Walk forwards
+            Vector3 moveDirection = Vector3.forward;
+            moveDirection = transform.TransformDirection(moveDirection);
+            moveDirection *= speed;
+            zombieController.Move(moveDirection * Time.deltaTime);
 
-			// TODO: Make the zombie walk along the floor rather than through it
-			transform.Translate (desiredMove, Space.Self);
+            // Rotate towards player
+            if (player != null) {
 
-			// Rotate towards player only if the player is near and within viewing range
-			
-			if (player != null) {
+                // Set all zombies to always follow player
+                float playerAngle = Vector3.SignedAngle(transform.forward, player.transform.position - transform.position, Vector3.up);
+                float rotateSpeed = playerAngle * Time.deltaTime;
+                transform.Rotate(0f, rotateSpeed, 0f, Space.Self);
 
-//				// Check if player is near the zombie
-//				float playerDistance = Vector3.Distance (player.transform.position, transform.position);
-//				if (playerDistance < playerDistanceThreshold) {
-//
-//					// Determine how to rotate towards the player
-//					float playerAngle = Vector3.SignedAngle (transform.forward, player.transform.position - transform.position, Vector3.up);
-//					float playerAngleSign = playerAngle / Mathf.Abs (playerAngle);
-//
-//					if (playerAngle < 70f && playerAngle > -70f) {
-//						// (-70f, 70f) is an arbitary range, but assumes that the player is within the zombie's viewport
-//
-//						// Rotate towards the player gradually
-//						float rotateSpeed = Mathf.Min(Mathf.Abs(playerAngle), 5f) * playerAngleSign * Time.deltaTime;
-//						transform.Rotate (0f, rotateSpeed, 0f, Space.Self);
-//
-//						// TODO: Set animation to aggressive mode
-//					} // otherwise, the zombie doesn't see the player so the zombie ignores the player
-//				}
+                //				// Check if player is near the zombie
+                //				float playerDistance = Vector3.Distance (player.transform.position, transform.position);
+                //				if (playerDistance < playerDistanceThreshold) {
+                //
+                //					// Determine how to rotate towards the player
+                //					float playerAngle = Vector3.SignedAngle (transform.forward, player.transform.position - transform.position, Vector3.up);
+                //					float playerAngleSign = playerAngle / Mathf.Abs (playerAngle);
+                //
+                //					if (playerAngle < 70f && playerAngle > -70f) {
+                //						// (-70f, 70f) is an arbitary range, but assumes that the player is within the zombie's viewport
+                //
+                //						// Rotate towards the player gradually
+                //						float rotateSpeed = Mathf.Min(Mathf.Abs(playerAngle), 5f) * playerAngleSign * Time.deltaTime;
+                //						transform.Rotate (0f, rotateSpeed, 0f, Space.Self);
+                //
+                //						// TODO: Set animation to aggressive mode
+                //					} // otherwise, the zombie doesn't see the player so the zombie ignores the player
+                //				}
 
-				// Set all zombies to always follow player
-				float playerAngle = Vector3.SignedAngle (transform.forward, player.transform.position - transform.position, Vector3.up);
-				float rotateSpeed = playerAngle * Time.deltaTime;
-				transform.Rotate (0f, rotateSpeed, 0f, Space.Self);
-			}
+            }
         }
     }
 
@@ -101,10 +101,9 @@ public class AnimController2 : MonoBehaviour {
 		// What to do when the zombie is dead (has no HP left)
 		if (HP == 0) {
 
-			// Disable the capsule collider
-			CapsuleCollider zombieCollider = GetComponent<CapsuleCollider> ();
-			if (zombieCollider != null) {
-				zombieCollider.enabled = false;
+			// Disable the Character Controller's collider
+			if (zombieController != null) {
+				zombieController.enabled = false;
 			}
 
 			// Queue Zombie Object to disappear from screen after a set amount of time

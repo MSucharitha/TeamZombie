@@ -14,6 +14,8 @@ public class Manager : MonoBehaviour
     public Transform playerArrow;
 	public GameObject zombieSpawnsParent;
 
+    public GameObject healthBar;
+
     //maximum allowed number of objects - set in the editor
 //	public int maxObjects = 30;
     public int maxObjects = 3;
@@ -72,6 +74,14 @@ public class Manager : MonoBehaviour
         
 		newZombie.transform.SetParent (zombieSpawnsParent.transform);
         spawnCount++;
+
+        // Add resource manager to remove zombies that are too far away from the player
+//		ResourceManager rsrcManager = newZombie.AddComponent<ResourceManager> ();
+//		rsrcManager.dstThreshold = 100f;
+        
+        GameObject zombieHealthBar = Instantiate(healthBar, (Vector3.up * 1.6f * newZombie.transform.localScale.x), Quaternion.Euler(Vector3.zero));
+        zombieHealthBar.transform.parent = newZombie.transform;
+        zombieHealthBar.transform.Translate(newZombie.transform.position);
 
         Debug.Log("zombie created, " + "current zombie count: " + spawnCount);
 		zombieArrow = Instantiate (zombieArrowPrefab, newZombie.transform.position, newZombie.transform.rotation, newZombie.transform ) as GameObject;
