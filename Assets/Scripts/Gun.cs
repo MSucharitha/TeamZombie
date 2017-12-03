@@ -17,8 +17,8 @@ public class Gun : MonoBehaviour {
     private LevelManager levelManagerScript;
 
     void Start () {
-        scoreText = GameObject.FindGameObjectWithTag("score").GetComponent<Text>();
-        levelManager = GameObject.FindWithTag("system");
+        scoreText = GameObject.FindGameObjectWithTag("score").GetComponent<Text>();        
+        levelManager = GameObject.Find("LevelManager");
         if (levelManager != null)
         {
             levelManagerScript = levelManager.GetComponent<LevelManager>();
