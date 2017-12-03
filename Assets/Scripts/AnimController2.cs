@@ -56,24 +56,29 @@ public class AnimController2 : MonoBehaviour {
 			
 			if (player != null) {
 
-				// Check if player is near the zombie
-				float playerDistance = Vector3.Distance (player.transform.position, transform.position);
-				if (playerDistance < playerDistanceThreshold) {
+//				// Check if player is near the zombie
+//				float playerDistance = Vector3.Distance (player.transform.position, transform.position);
+//				if (playerDistance < playerDistanceThreshold) {
+//
+//					// Determine how to rotate towards the player
+//					float playerAngle = Vector3.SignedAngle (transform.forward, player.transform.position - transform.position, Vector3.up);
+//					float playerAngleSign = playerAngle / Mathf.Abs (playerAngle);
+//
+//					if (playerAngle < 70f && playerAngle > -70f) {
+//						// (-70f, 70f) is an arbitary range, but assumes that the player is within the zombie's viewport
+//
+//						// Rotate towards the player gradually
+//						float rotateSpeed = Mathf.Min(Mathf.Abs(playerAngle), 5f) * playerAngleSign * Time.deltaTime;
+//						transform.Rotate (0f, rotateSpeed, 0f, Space.Self);
+//
+//						// TODO: Set animation to aggressive mode
+//					} // otherwise, the zombie doesn't see the player so the zombie ignores the player
+//				}
 
-					// Determine how to rotate towards the player
-					float playerAngle = Vector3.SignedAngle (transform.forward, player.transform.position - transform.position, Vector3.up);
-					float playerAngleSign = playerAngle / Mathf.Abs (playerAngle);
-
-					if (playerAngle < 70f && playerAngle > -70f) {
-						// (-70f, 70f) is an arbitary range, but assumes that the player is within the zombie's viewport
-
-						// Rotate towards the player gradually
-						float rotateSpeed = Mathf.Min(playerAngle, 5f) * Time.deltaTime;
-						transform.Rotate (0f, rotateSpeed, 0f, Space.Self);
-
-						// TODO: Set animation to aggressive mode
-					} // otherwise, the zombie doesn't see the player so the zombie ignores the player
-				}
+				// Set all zombies to always follow player
+				float playerAngle = Vector3.SignedAngle (transform.forward, player.transform.position - transform.position, Vector3.up);
+				float rotateSpeed = playerAngle * Time.deltaTime;
+				transform.Rotate (0f, rotateSpeed, 0f, Space.Self);
 			}
         }
     }
@@ -82,7 +87,7 @@ public class AnimController2 : MonoBehaviour {
 		// Calculate the HP of the zombie after damage is taken
 		int HP = anim.GetInteger ("life");
 		HP = Mathf.Max(HP - damage, 0);
-		Debug.Log ("Zombie HP: " + HP);
+		Debug.Log ("Zombie HP: " + anim.GetInteger("life") + ", " + HP);
 
 		// Update the HP/Life points of the zombie
 		anim.SetInteger ("life", HP);
