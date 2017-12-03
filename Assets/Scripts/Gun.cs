@@ -8,32 +8,37 @@ public class Gun : MonoBehaviour {
 
     public int max_damage = 5;
     public float max_range = 100f;
-    //private int score = 0; // should be in player controller
     public Camera fpsCam;
     public ParticleSystem muzzleflash;
-    Animator anim;
+    private Animator anim;
     string GunName;
     private Text scoreText;
-    public GameObject manager;
+    private GameObject zombieManager;
+    private GameObject levelManager;
     private Manager zombieManagerScript;
-    private PlayerController playerScript;
+    private LevelManager levelManagerScript;
+<<<<<<< HEAD
+    
+=======
 
     // Use this for initialization
+>>>>>>> b8405ee18f44a26c6bc12fce465026c82b282557
     void Start () {
         scoreText = GameObject.FindGameObjectWithTag("score").GetComponent<Text>();
-        if (manager != null)
+        levelManager = GameObject.FindWithTag("system");
+        if (levelManager != null)
         {
-            zombieManagerScript = manager.GetComponent<Manager>();
+            levelManagerScript = levelManager.GetComponent<LevelManager>();
+        }
+        zombieManager = GameObject.Find("EnemyManager");
+        if (zombieManager != null)
+        {
+            zombieManagerScript = zombieManager.GetComponent<Manager>();
         }
         anim = GetComponent<Animator>();
+
         // GunName = this.ToString();           
-        GameObject player = GameObject.FindWithTag("Player");
-        if (player != null)
-        {
-            playerScript = player.GetComponent<PlayerController>();
-        }
-        //use this:   playerScript.playerHP
-        //use this for score:   playerScript.score
+       
     }
 	
 	// Update is called once per frame
@@ -45,15 +50,7 @@ public class Gun : MonoBehaviour {
         }
     }
 
-    private void incrementScore(int points) {
-        if (playerScript != null)
-        {
-            playerScript.score += points;
-            scoreText.text = "Score: " + playerScript.score;
-            Debug.Log("current score: " + playerScript.score);
-        }
-    }
-
+    
     void Shoot()
     {
         muzzleflash.Play();
@@ -97,7 +94,7 @@ public class Gun : MonoBehaviour {
                 Debug.Log("damage: " + shot_damage);
                 zombieCtrl.shoot (shot_damage);
                 //increment score, or increment when zombie is dead???
-				incrementScore(shot_damage*10);
+                levelManagerScript.incrementScore(shot_damage*10);
 
                 //// Legacy code for later consideration of weapon type
                 /*

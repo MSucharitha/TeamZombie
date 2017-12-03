@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//this is zombie manager
 public class Manager : MonoBehaviour
 {
     //  public PlayerHealth playerHealth;       // Reference to the player's heatlh.

@@ -5,8 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
 	public float speed = 10;
-    public int score = 0;
-    public int playerHP = 10;
+
 	private Rigidbody rb;
 
 	// Use this for initialization

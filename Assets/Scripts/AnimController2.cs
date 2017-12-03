@@ -105,6 +105,7 @@ public class AnimController2 : MonoBehaviour {
 			Destroy(this.gameObject, zombieDeathTimeout);
 
             //increment score here
+            /*
             if (player != null)
             {
                 PlayerController playerScript = player.GetComponent<PlayerController>();
@@ -114,6 +115,7 @@ public class AnimController2 : MonoBehaviour {
                     Debug.Log("current score: " + playerScript.score);
                 }
             }
+            */
         }
 	}
 
