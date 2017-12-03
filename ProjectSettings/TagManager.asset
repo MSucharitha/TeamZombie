@@ -6,6 +6,7 @@ TagManager:
   tags:
   - score
   - zombie
+  - system
   - terrain
   layers:
   - Default

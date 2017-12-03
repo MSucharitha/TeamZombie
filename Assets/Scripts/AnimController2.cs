@@ -14,27 +14,31 @@ public class AnimController2 : MonoBehaviour {
 	static float zombieDeathTimeout = 5f;
     private GameObject player;
     private Text scoreText;
-	private CharacterController zombieController;
-
-    // Use this for initialization
+    private GameObject levelManager;   
+    private LevelManager levelManagerScript;
     void Start()
     {
         anim = GetComponent<Animator>();
+		CapsuleCollider zombieCollider = GetComponent<CapsuleCollider> ();
+		if (zombieCollider == null) {
+			// Add a capsule collider to the attached Zombie GameObject
+			zombieCollider = gameObject.AddComponent<CapsuleCollider> ();
 
-		// Set a Character Controller if necessary
-		zombieController = GetComponent<CharacterController> ();
-		if (zombieController == null) {
-			zombieController = gameObject.AddComponent<CharacterController> ();
+			// Set the collider for the zombie's dimensions
+			zombieCollider.height = 2f;
+			zombieCollider.radius = 0.5f;
+			zombieCollider.center = new Vector3 (0f, 0.75f, 0f);
 
-			// Set Character Controller properties for the zombie
-			zombieController.center = new Vector3(0f, 0.75f, 0f);
-			zombieController.radius = 0.5f;
-			zombieController.height = 1.6f;
+			// Enable the collider
+			zombieCollider.enabled = true;
 		}
-
-		// Find the player point-of-reference for movement script in Update()
         player = GameObject.FindWithTag("Player");
         scoreText = GameObject.FindGameObjectWithTag("score").GetComponent<Text>();
+        levelManager = GameObject.Find("LevelManager");
+        if (levelManager != null)
+        {
+            levelManagerScript = levelManager.GetComponent<LevelManager>();
+        }
     }
 
     // Update is called once per frame
@@ -44,20 +48,19 @@ public class AnimController2 : MonoBehaviour {
         if(zombieAlive) {
 			// If the zombie is still alive...
 
-			// Walk forwards
-			Vector3 moveDirection = Vector3.forward;
-			moveDirection = transform.TransformDirection (moveDirection);
-			moveDirection *= speed;
-			zombieController.Move(moveDirection * Time.deltaTime);
+			// Walk forwards along the terrain
+			Vector3 desiredMove = Vector3.forward * speed * Time.deltaTime;
+//			RaycastHit hitInfo;
+//			Physics.SphereCast (transform.position, 0.5f, Vector3.down, out hitInfo, 3f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
+//			desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized * speed * Time.deltaTime;
+//			Debug.Log (desiredMove.ToString());
 
-			// Rotate towards player
+			// TODO: Make the zombie walk along the floor rather than through it
+			transform.Translate (desiredMove, Space.Self);
+
+			// Rotate towards player only if the player is near and within viewing range
+			
 			if (player != null) {
-
-
-				// Set all zombies to always follow player
-				float playerAngle = Vector3.SignedAngle (transform.forward, player.transform.position - transform.position, Vector3.up);
-				float rotateSpeed = playerAngle * Time.deltaTime;
-				transform.Rotate (0f, rotateSpeed, 0f, Space.Self);
 
 //				// Check if player is near the zombie
 //				float playerDistance = Vector3.Distance (player.transform.position, transform.position);
@@ -77,6 +80,11 @@ public class AnimController2 : MonoBehaviour {
 //						// TODO: Set animation to aggressive mode
 //					} // otherwise, the zombie doesn't see the player so the zombie ignores the player
 //				}
+
+				// Set all zombies to always follow player
+				float playerAngle = Vector3.SignedAngle (transform.forward, player.transform.position - transform.position, Vector3.up);
+				float rotateSpeed = playerAngle * Time.deltaTime;
+				transform.Rotate (0f, rotateSpeed, 0f, Space.Self);
 			}
         }
     }
@@ -93,24 +101,18 @@ public class AnimController2 : MonoBehaviour {
 		// What to do when the zombie is dead (has no HP left)
 		if (HP == 0) {
 
-			// Disable the Character Controller's collider
-			if (zombieController != null) {
-				zombieController.enabled = false;
+			// Disable the capsule collider
+			CapsuleCollider zombieCollider = GetComponent<CapsuleCollider> ();
+			if (zombieCollider != null) {
+				zombieCollider.enabled = false;
 			}
 
 			// Queue Zombie Object to disappear from screen after a set amount of time
 			Destroy(this.gameObject, zombieDeathTimeout);
 
             //increment score here
-            if (player != null)
-            {
-                PlayerController playerScript = player.GetComponent<PlayerController>();
-                if (playerScript != null && scoreText!= null) {
-                    playerScript.score += 100;
-                    scoreText.text = "Score: " + playerScript.score;
-                    Debug.Log("current score: " + playerScript.score);
-                }
-            }
+            levelManagerScript.incrementScore(100);
+            //TODO different zombie type for different points
         }
 	}
 
