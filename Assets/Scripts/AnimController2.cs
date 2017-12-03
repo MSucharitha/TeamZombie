@@ -14,7 +14,8 @@ public class AnimController2 : MonoBehaviour {
 	static float zombieDeathTimeout = 5f;
     private GameObject player;
     private Text scoreText;
-    // Use this for initialization
+    private GameObject levelManager;   
+    private LevelManager levelManagerScript;
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -33,6 +34,11 @@ public class AnimController2 : MonoBehaviour {
 		}
         player = GameObject.FindWithTag("Player");
         scoreText = GameObject.FindGameObjectWithTag("score").GetComponent<Text>();
+        levelManager = GameObject.Find("LevelManager");
+        if (levelManager != null)
+        {
+            levelManagerScript = levelManager.GetComponent<LevelManager>();
+        }
     }
 
     // Update is called once per frame
@@ -105,17 +111,8 @@ public class AnimController2 : MonoBehaviour {
 			Destroy(this.gameObject, zombieDeathTimeout);
 
             //increment score here
-            /*
-            if (player != null)
-            {
-                PlayerController playerScript = player.GetComponent<PlayerController>();
-                if (playerScript != null && scoreText!= null) {
-                    playerScript.score += 100;
-                    scoreText.text = "Score: " + playerScript.score;
-                    Debug.Log("current score: " + playerScript.score);
-                }
-            }
-            */
+            levelManagerScript.incrementScore(100);
+            //TODO different zombie type for different points
         }
 	}
 
