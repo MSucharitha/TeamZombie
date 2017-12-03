@@ -109,6 +109,9 @@ public class Manager : MonoBehaviour
         Debug.Log("zombie created, " + "current zombie count: " + this.spawnCount);
 		zombieArrow = Instantiate (zombieArrowPrefab, newZombie.transform.position, newZombie.transform.rotation, newZombie.transform ) as GameObject;
 		zombieArrow.transform.localScale = playerArrow.localScale;
+		Vector3 arrowPos = zombieArrow.transform.position;
+
+		zombieAnimController.arrowObject = zombieArrow;
 
 
 

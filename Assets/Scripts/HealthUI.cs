@@ -12,17 +12,21 @@ public class HealthUI : MonoBehaviour {
 	GameObject player;
 
 	Image fillImage;
-	int currHealth;
-	int maxHealth;
+	int currHealth = -1;
+	int maxHealth = -1;
+
+	bool active = true;
 
 	// Use this for initialization
 	void Start () {
+		ObtainComponents ();
+	}
+
+	void ObtainComponents() {
 		fillImage = fill.GetComponent<Image> ();
 		if (fillImage == null) {
 			Debug.Log ("ERROR! Fill image file not found!");
 		}
-		maxHealth = 10;
-		currHealth = maxHealth;
 
 		if (player == null) {
 			player = GameObject.FindGameObjectWithTag ("Player");
@@ -47,18 +51,22 @@ public class HealthUI : MonoBehaviour {
 		currHealth = health;
 
 		// Guarantee that the health never goes above 1 or below 0
-		float healthPercentage = Mathf.Clamp01(health / maxHealth);
+		float healthPercentage = Mathf.Clamp01((float) health / (float) maxHealth);
+		Debug.Log ("Zombie health is " + health.ToString() + "/" + maxHealth.ToString() + " = " + healthPercentage.ToString () + "%");
 
 		// Update the health bar game object
 		fill.transform.localScale = new Vector3 (healthPercentage, 1f, 1f);
 
 		// If below a certain threshold, change the color
-		if (health <= 0.25f) {
-			fillImage.color = new Color (1f, 0.3f, 0.3f); 	// red
-		} else if (health <= 0.5f) {
-			fillImage.color = new Color (1f, 0.75f, 0.2f); 	// orange
-		} else {
-			fillImage.color = new Color (0.3f, 1f, 0.3f); 	// green
+		fillImage = fill.GetComponent<Image> ();
+		if (active && fillImage != null) {
+			if (healthPercentage <= 0.25f) {
+				fillImage.color = new Color (1f, 0.3f, 0.3f); 	// red
+			} else if (healthPercentage <= 0.5f) {
+				fillImage.color = new Color (1f, 0.75f, 0.2f); 	// orange
+			} else {
+				fillImage.color = new Color (0.3f, 1f, 0.3f); 	// green
+			}
 		}
 
 		// Optional: Add Health Bar Text
@@ -66,9 +74,13 @@ public class HealthUI : MonoBehaviour {
 	}
 
 	public void Show() {
+		active = true;
 		gameObject.SetActive (true);
+
+		ObtainComponents ();
 	}
 	public void Hide() {
+		active = false;
 		gameObject.SetActive (false);
 	}
 }

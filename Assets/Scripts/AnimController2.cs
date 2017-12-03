@@ -21,13 +21,18 @@ public class AnimController2 : MonoBehaviour {
     private CharacterController zombieController;
 
 	public GameObject healthbarObject;
+	public GameObject arrowObject;
 
 	private float lastShootTime = -100f;
 
     void Start()
     {
         anim = GetComponent<Animator>();
-		healthbarObject.GetComponent<HealthUI> ().SetHealth(anim.GetInteger ("life"));
+
+		if (healthbarObject != null) {
+			Debug.Log("Life is " + anim.GetInteger ("life").ToString());
+			healthbarObject.GetComponent<HealthUI> ().SetHealth (anim.GetInteger ("life"));
+		}
 
         // Set a character controller if necessary
         zombieController = GetComponent<CharacterController>();
@@ -100,16 +105,26 @@ public class AnimController2 : MonoBehaviour {
             }
         }
 
-		float currTime = Time.time;
-		if (currTime - lastShootTime > 5f || anim.GetInteger("life") <= 0) {
-			healthbarObject.GetComponent<HealthUI> ().Hide ();
+		if (healthbarObject != null) {
+			float currTime = Time.time;
+			float dstToPlayer = Vector3.Distance (transform.position, player.transform.position);
+			if (dstToPlayer <= 25 && anim.GetInteger("life") > 0) {
+				healthbarObject.GetComponent<HealthUI> ().Show ();
+			} else if (currTime - lastShootTime > 5f || anim.GetInteger ("life") <= 0) {
+				healthbarObject.GetComponent<HealthUI> ().Hide ();
+			}
 		}
     }
 
 	public void shoot(int damage) {
+		// TODO: REMOVE NEXT LINE
+		damage = 1;
+
 		// Calculate the HP of the zombie after damage is taken
 		int HP = anim.GetInteger ("life");
+		Debug.Log ("Health was " + HP.ToString ());
 		HP = Mathf.Max(HP - damage, 0);
+		Debug.Log ("Health after damage is " + HP.ToString ());
 		Debug.Log ("Zombie HP: " + anim.GetInteger("life") + ", " + HP);
 
 		// Update the HP/Life points of the zombie
@@ -140,17 +155,22 @@ public class AnimController2 : MonoBehaviour {
             levelManagerScript.incrementScore(100);
 			levelManagerScript.OnZombieKill ();
 
+			// Stop showing arrow on zombie death
+			arrowObject.SetActive(false);
+
             //TODO different zombie type for different points
         }
 
 
 		// Update health bar and show
-		float currTime = Time.time;
-		if (currTime - lastShootTime > 5f) {
-			lastShootTime = currTime;
-			healthbarObject.GetComponent<HealthUI> ().Show ();
+		if (healthbarObject != null) {
+			healthbarObject.GetComponent<HealthUI> ().UpdateHealth (HP);
+			float currTime = Time.time;
+			if (currTime - lastShootTime > 5f) {
+				lastShootTime = currTime;
+				healthbarObject.GetComponent<HealthUI> ().Show ();
+			}
 		}
-		healthbarObject.GetComponent<HealthUI> ().UpdateHealth(HP);
 
 	}
 
