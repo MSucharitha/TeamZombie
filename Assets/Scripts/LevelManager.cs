@@ -77,8 +77,7 @@ public class LevelManager : MonoBehaviour {
             scoreText = scoreObject.GetComponent<Text>();
         }
         scoreText.text = "Score: " + this.score;
-        Debug.Log("current score: " + this.score);
-        
+       
     }
 
 }

@@ -8,7 +8,7 @@ public class Manager : MonoBehaviour
     public Transform playerLocation;
     public GameObject[] zombies;                // The enemy prefab to be spawned.
     public float spawnTime;            // 2 seconds between each spawn.
-    public Transform[] spawnPoints;         // An array of the spawn points this enemy can spawn from.
+    public Transform spawnPoint;         // An array of the spawn points this enemy can spawn from.
     public GameObject zombieArrowPrefab;                // The enemy prefab to be spawned.
     private GameObject zombieArrow;
     public Transform playerArrow;
@@ -56,31 +56,36 @@ public class Manager : MonoBehaviour
         }
 
     }
-        
+
+    public void setSpawnTime(float newTime) {
+        this.spawnTime = newTime;
+    }
+
+
     void SpawnEnemy(){
 
     // Find a random index between zero and one less than the number of spawn points.
-        int spawnPointIndex = Random.Range(0, spawnPoints.Length);
+      //  int spawnPointIndex = Random.Range(0, spawnPoints.Length);
 
-        int offsetX = Random.Range(60, 100);
-        int offsetZ = Random.Range(60, 100);
+        int randomRadius = Random.Range(60, 100);
+        float randomAngle = Random.Range(0, 2 * Mathf.PI);
+
         int signX = Random.Range(0, 1);
         if (signX == 0) { signX = -1; };
         int signZ = Random.Range(0, 1);
         if (signZ == 0) { signZ = -1; };
         int random_zombie = Random.Range(0, zombies.Length);
-
-        int random_angle = Random.Range(1, 360);       
-        
-        spawnPoints[spawnPointIndex].position = new Vector3(playerLocation.position.x + offsetX * signX, 0, playerLocation.position.z + offsetZ * signZ);
+        int random_angle = Random.Range(0, 360);
+        Debug.Log("random radius: " + randomRadius + " random x: " + randomRadius * Mathf.Cos(randomAngle) + " random z: " +  randomRadius * Mathf.Sin(randomAngle));
+        spawnPoint.position = new Vector3(playerLocation.position.x + randomRadius * Mathf.Cos(randomAngle), 0, playerLocation.position.z + randomRadius * Mathf.Sin(randomAngle));
 
        // Vector3 targetDir = target.position - transform.position;
-        Vector3 targetDir = playerLocation.position - spawnPoints[spawnPointIndex].position;
+        Vector3 targetDir = playerLocation.position - spawnPoint.position;
         float angle = Vector3.Angle(targetDir, transform.forward);
-        spawnPoints[spawnPointIndex].rotation.Set(spawnPoints[spawnPointIndex].rotation.x, angle, spawnPoints[spawnPointIndex].rotation.z, spawnPoints[spawnPointIndex].rotation.w);
+        spawnPoint.rotation.Set(spawnPoint.rotation.x, angle, spawnPoint.rotation.z, spawnPoint.rotation.w);
         
         // Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
-        GameObject newZombie = Instantiate(zombies[random_zombie], spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+        GameObject newZombie = Instantiate(zombies[random_zombie], spawnPoint.position, spawnPoint.rotation);
         newZombie.tag = "zombie";
         
 		newZombie.transform.SetParent (zombieSpawnsParent.transform);
