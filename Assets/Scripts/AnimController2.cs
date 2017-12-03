@@ -21,6 +21,7 @@ public class AnimController2 : MonoBehaviour {
     private CharacterController zombieController;
 
 	public GameObject healthbarObject;
+	public GameObject arrowObject;
 
 	private float lastShootTime = -100f;
 
@@ -155,6 +156,7 @@ public class AnimController2 : MonoBehaviour {
 			levelManagerScript.OnZombieKill ();
 
 			// Stop showing arrow on zombie death
+			arrowObject.SetActive(false);
 
             //TODO different zombie type for different points
         }
