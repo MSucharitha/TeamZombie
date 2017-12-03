@@ -105,6 +105,9 @@ public class AnimController2 : MonoBehaviour {
 		// Update the HP/Life points of the zombie
 		anim.SetInteger ("life", HP);
 
+		// Update the score
+		levelManagerScript.incrementScore(damage * 10);
+
 		// What to do when the zombie is dead (has no HP left)
 		if (HP == 0) {
 
@@ -125,6 +128,8 @@ public class AnimController2 : MonoBehaviour {
 
             //increment score here
             levelManagerScript.incrementScore(100);
+			levelManagerScript.OnZombieKill ();
+
             //TODO different zombie type for different points
         }
 	}

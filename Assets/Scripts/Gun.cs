@@ -65,19 +65,17 @@ public class Gun : MonoBehaviour {
                 int shot_damage = 1;
                 if (hit.distance < max_range)
                     shot_damage = (int) ((1 - hit.distance / max_range) * max_damage);                
-                Debug.Log("hit point y: " + hit.point.y);
-                Debug.Log("collider height: " + hit.collider.bounds.size.y);
+
                 if (hit.point.y >= hit.collider.bounds.size.y * 5 / 8)
                 {
                     shot_damage = Mathf.Min(max_damage, shot_damage * 2);
                     Debug.Log("zombie head shot!");
+
                     // add bonus
                     //scoreText.text = "Bonus Score: " + score + "";
                 }
                 Debug.Log("damage: " + shot_damage);
                 zombieCtrl.shoot (shot_damage);
-                //increment score, or increment when zombie is dead???
-                levelManagerScript.incrementScore(shot_damage*10);
 
                 //// Legacy code for later consideration of weapon type
                 /*
