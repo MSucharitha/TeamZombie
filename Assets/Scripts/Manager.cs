@@ -16,21 +16,34 @@ public class Manager : MonoBehaviour
 
     public GameObject healthBar;
 
-    //maximum allowed number of objects - set in the editor
-//	public int maxObjects = 30;
-    public int maxObjects = 3;
+	public int maxObjects = 30;  
+
+    public void setMaxObjects(int num) {
+        this.maxObjects = num;
+    }
 
     // number of objects currently spawned
-    public int spawnCount = 0;
+    private int spawnCount = 5;
 
-   // public void decrementSpawnCount() { }
+    public void resetSpawnCount() {
+        spawnCount = 0;
+    }
+
+    public int getSpawnCount()
+    {
+        return this.spawnCount;
+    }
+
+    public void incrementSpawnCount() {
+        this.spawnCount++;
+    }
+    public void decrementSpawnCount() {
+        this.spawnCount--;
+    }
 
     void Start()  
     {
-        InvokeRepeating("Spawn", 0, spawnTime);
-       
-        //zombieArrow = Instantiate(zombieArrowPrefab) as GameObject;
-       // GameObject obj = Instantiate(prefab, position, rotation) as GameObject;
+        InvokeRepeating("Spawn", 0, spawnTime);  
 
     }
 
@@ -57,9 +70,7 @@ public class Manager : MonoBehaviour
         if (signZ == 0) { signZ = -1; };
         int random_zombie = Random.Range(0, zombies.Length);
 
-        int random_angle = Random.Range(1, 360);
-
-        // Jessie original version
+        int random_angle = Random.Range(1, 360);       
         
         spawnPoints[spawnPointIndex].position = new Vector3(playerLocation.position.x + offsetX * signX, 0, playerLocation.position.z + offsetZ * signZ);
 
@@ -73,7 +84,7 @@ public class Manager : MonoBehaviour
         newZombie.tag = "zombie";
         
 		newZombie.transform.SetParent (zombieSpawnsParent.transform);
-        spawnCount++;
+        incrementSpawnCount();
 
         // Add resource manager to remove zombies that are too far away from the player
 //		ResourceManager rsrcManager = newZombie.AddComponent<ResourceManager> ();
@@ -83,23 +94,10 @@ public class Manager : MonoBehaviour
         zombieHealthBar.transform.parent = newZombie.transform;
         zombieHealthBar.transform.Translate(newZombie.transform.position);
 
-        Debug.Log("zombie created, " + "current zombie count: " + spawnCount);
+        Debug.Log("zombie created, " + "current zombie count: " + this.spawnCount);
 		zombieArrow = Instantiate (zombieArrowPrefab, newZombie.transform.position, newZombie.transform.rotation, newZombie.transform ) as GameObject;
 		zombieArrow.transform.localScale = playerArrow.localScale;
 
-//		zombieArrow = Instantiate(zombieArrowPrefab, newZombie.transform.position, newZombie.transform.rotation) as GameObject;
-//        zombieArrow.transform.parent = newZombie.transform;
-
-        //viraj version
-
-        // spawnPoints[spawnPointIndex].rotation.y = playerLocation.rotation.y + 180;
-        // Vector3 directionOfLook = playerLocation.position - position;
-        // Quaternion rotate = Quaternion.LookRotation(directionOfLook);
-
-        //Quaternion rotation = new Quaternion(playerArrow.rotation.x, playerLocation.rotation.y + angle-90, spawnPoints[spawnPointIndex].rotation.z, spawnPoints[spawnPointIndex].rotation.w+90);
-        //Quaternion rotation = new Quaternion(0,0,0,0);
-        //Vector3 position = new Vector3(playerLocation.position.x + offsetX * signX, 17.3f, playerLocation.position.z + offsetZ * signZ);
-        // Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
 
 
     }

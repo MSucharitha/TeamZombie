@@ -16,7 +16,8 @@ public class AnimController2 : MonoBehaviour {
     private Text scoreText;
     private GameObject levelManager;   
     private LevelManager levelManagerScript;
-
+    private GameObject zombieManager;
+    private Manager zombieManagerScript;
     private CharacterController zombieController;
 
     void Start()
@@ -38,10 +39,16 @@ public class AnimController2 : MonoBehaviour {
         // Find player point-of-reference for movement script 
         player = GameObject.FindWithTag("Player");
         scoreText = GameObject.FindGameObjectWithTag("score").GetComponent<Text>();
+        //find zombie and level manager
         levelManager = GameObject.Find("LevelManager");
         if (levelManager != null)
         {
             levelManagerScript = levelManager.GetComponent<LevelManager>();
+        }
+        zombieManager = GameObject.Find("EnemyManager");
+        if (zombieManager != null)
+        {
+            zombieManagerScript = zombieManager.GetComponent<Manager>();
         }
     }
 
@@ -108,6 +115,13 @@ public class AnimController2 : MonoBehaviour {
 
 			// Queue Zombie Object to disappear from screen after a set amount of time
 			Destroy(this.gameObject, zombieDeathTimeout);
+
+            //decrement spawn count             
+            if (zombieManagerScript != null)
+            {
+                zombieManagerScript.decrementSpawnCount();
+                Debug.Log("zombie killed, " + "current zombie count: " + zombieManagerScript.getSpawnCount());
+            }
 
             //increment score here
             levelManagerScript.incrementScore(100);

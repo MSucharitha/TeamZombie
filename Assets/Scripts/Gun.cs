@@ -12,10 +12,8 @@ public class Gun : MonoBehaviour {
     public ParticleSystem muzzleflash;
     private Animator anim;
     string GunName;
-    private Text scoreText;
-    private GameObject zombieManager;
-    private GameObject levelManager;
-    private Manager zombieManagerScript;
+    private Text scoreText;    
+    private GameObject levelManager;   
     private LevelManager levelManagerScript;
     
     void Start () {
@@ -25,11 +23,7 @@ public class Gun : MonoBehaviour {
         {
             levelManagerScript = levelManager.GetComponent<LevelManager>();
         }
-        zombieManager = GameObject.Find("EnemyManager");
-        if (zombieManager != null)
-        {
-            zombieManagerScript = zombieManager.GetComponent<Manager>();
-        }
+      
         anim = GetComponent<Animator>();
 
         // GunName = this.ToString();           
@@ -67,13 +61,7 @@ public class Gun : MonoBehaviour {
 				// Call the shooting function for the zombie
 				AnimController2 zombieCtrl = HitObj.GetComponent<AnimController2> ();
 
-                //decrement spawn count 
-                //is it working?
-                if (zombieManagerScript != null)
-                {
-                    zombieManagerScript.spawnCount--;
-                    Debug.Log("zombie killed, " + "current zombie count: " + zombieManagerScript.spawnCount);
-                }
+                
                 int shot_damage = 1;
                 if (hit.distance < max_range)
                     shot_damage = (int) ((1 - hit.distance / max_range) * max_damage);                
