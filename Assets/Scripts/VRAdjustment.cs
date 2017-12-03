@@ -32,10 +32,10 @@ public class VRAdjustment : MonoBehaviour {
 
 		}
 
-		// Reset Position if the Player is falling
-		if (gameObject.transform.position.y < -0.1) {
-			gameObject.transform.Translate (0f, 0.2f, 0f);
-		}
+//		// Reset Position if the Player is falling
+//		if (gameObject.transform.position.y < -0.1) {
+//			gameObject.transform.Translate (0f, 0.2f, 0f);
+//		}
 	}
 
 	void OnApplicationQuit() {

@@ -15,7 +15,8 @@ public class Manager : MonoBehaviour
 	public GameObject zombieSpawnsParent;
 
     //maximum allowed number of objects - set in the editor
-    public int maxObjects = 30;
+//	public int maxObjects = 30;
+    public int maxObjects = 3;
 
     // number of objects currently spawned
     public int spawnCount = 0;
@@ -73,9 +74,11 @@ public class Manager : MonoBehaviour
         spawnCount++;
 
         Debug.Log("zombie created, " + "current zombie count: " + spawnCount);
-        zombieArrow = Instantiate(zombieArrowPrefab, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation) as GameObject;
-        zombieArrow.transform.localScale = playerArrow.localScale;
-        zombieArrow.transform.parent = newZombie.transform;
+		zombieArrow = Instantiate (zombieArrowPrefab, newZombie.transform.position, newZombie.transform.rotation, newZombie.transform ) as GameObject;
+		zombieArrow.transform.localScale = playerArrow.localScale;
+
+//		zombieArrow = Instantiate(zombieArrowPrefab, newZombie.transform.position, newZombie.transform.rotation) as GameObject;
+//        zombieArrow.transform.parent = newZombie.transform;
 
         //viraj version
 

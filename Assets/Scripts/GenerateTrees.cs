@@ -19,6 +19,10 @@ public class GenerateTrees : MonoBehaviour {
 			rsrcRandomizer = new System.Random ();
 		}
 		GenerateNaturalResources (0);
+
+		if (player == null) {
+			player = GameObject.FindGameObjectWithTag ("Player");
+		}
 	}
 	
 
