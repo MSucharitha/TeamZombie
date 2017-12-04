@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Scenes/GVRDemo.unity
+    path: Assets/_Scenes/MainMenu.unity
     guid: 8058eb97079b81d4a9ddc9ae6a58347e
   - enabled: 1
     path: Assets/_Scenes/gc_gameplay.unity
     guid: 87aa2bb3f4f5e264295a72fbd83a237e
+  - enabled: 1
+    path: Assets/_Scenes/GameOver.unity
+    guid: 5a13f3feaeac7c249923e2a5dbde531c
