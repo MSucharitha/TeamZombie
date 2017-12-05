@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public class FPSHealth : MonoBehaviour {
     [SerializeField] public int index;
     public ApplicationModel app;
+
+	public int gameOverSceneIndex = 2;
+
     void OnTriggerEnter(Collider col)
     {
 //        Debug.Log("collision detected");
@@ -18,7 +21,7 @@ public class FPSHealth : MonoBehaviour {
             int score = 0;
             System.Int32.TryParse(scoreText.text.Split(':')[1], out score);
             ApplicationModel.score = score;
-            SceneManager.LoadScene(2);
+			SceneManager.LoadScene(gameOverSceneIndex);
         }
     }
 }
