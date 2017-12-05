@@ -1565,6 +1565,7 @@ GameObject:
   m_Component:
   - component: {fileID: 123690357}
   - component: {fileID: 123690359}
+  - component: {fileID: 123690358}
   m_Layer: 0
   m_Name: EnemyManager
   m_TagString: Untagged
@@ -1585,6 +1586,86 @@ Transform:
   m_Father: {fileID: 1140311590}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &123690358
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 123690356}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: a5e9258370c254b3c9fcc430c66b2c7b, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &123690359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1599,22 +1680,19 @@ MonoBehaviour:
   playerLocation: {fileID: 19115949}
   zombies:
   - {fileID: 1224690645136348, guid: b08311fb2e39bfa40abca971f57b85b7, type: 2}
-  - {fileID: 1452933621827218, guid: 5da7c20046e0f354694fa1715f982ac1, type: 2}
+  - {fileID: 0}
   - {fileID: 1725201473607718, guid: ea1c69dbad67fa544ae16be565a6a240, type: 2}
   - {fileID: 1357292888734192, guid: c8f49f8f82610464ea2498b91fb5667f, type: 2}
   - {fileID: 1954468670206560, guid: 8b0a321d4256ef149af0e8f54c369550, type: 2}
   - {fileID: 1051258672283810, guid: 35f605a21deac2343945edf6e7895c3c, type: 2}
   spawnTime: 2
-  spawnPoints:
-  - {fileID: 1340130789}
-  - {fileID: 1428757637}
-  - {fileID: 1495616704}
+  spawnPoint: {fileID: 0}
   zombieArrowPrefab: {fileID: 1391849889077330, guid: 1cf97a372b7618f4887990e0745f1146,
     type: 2}
   playerArrow: {fileID: 1928571091}
   zombieSpawnsParent: {fileID: 757516117}
+  healthBar: {fileID: 0}
   maxObjects: 20
-  spawnCount: 0
 --- !u!4 &123941766 stripped
 Transform:
   m_PrefabParentObject: {fileID: 442488, guid: ec78ebca7517fb745a45a931cb06d2bd, type: 2}
@@ -2329,11 +2407,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97cc1058d68f4634d80788c5034714ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
-  range: 100
+  max_damage: 3
+  max_range: 100
   fpsCam: {fileID: 1627134623}
   muzzleflash: {fileID: 714560892}
-  manager: {fileID: 0}
 --- !u!1001 &181217523
 Prefab:
   m_ObjectHideFlags: 0
@@ -10053,6 +10130,7 @@ MonoBehaviour:
   speed: 2
   rotationSpeed: 75
   playerLocation: {fileID: 0}
+  gryphonDie: {fileID: 0}
 --- !u!4 &558402325 stripped
 Transform:
   m_PrefabParentObject: {fileID: 445910, guid: c63ea781a273235439e583799176c846, type: 2}
@@ -10084,6 +10162,7 @@ MonoBehaviour:
   speed: 2
   rotationSpeed: 75
   playerLocation: {fileID: 0}
+  gryphonDie: {fileID: 0}
 --- !u!4 &568677772 stripped
 Transform:
   m_PrefabParentObject: {fileID: 445910, guid: c63ea781a273235439e583799176c846, type: 2}
@@ -26900,6 +26979,7 @@ MonoBehaviour:
   speed: 2
   rotationSpeed: 75
   playerLocation: {fileID: 0}
+  gryphonDie: {fileID: 0}
 --- !u!1001 &1263240129
 Prefab:
   m_ObjectHideFlags: 0
@@ -28159,11 +28239,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97cc1058d68f4634d80788c5034714ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
-  range: 100
+  max_damage: 3
+  max_range: 100
   fpsCam: {fileID: 1627134623}
   muzzleflash: {fileID: 582203255}
-  manager: {fileID: 0}
 --- !u!1001 &1423085593
 Prefab:
   m_ObjectHideFlags: 0
@@ -29139,11 +29218,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97cc1058d68f4634d80788c5034714ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
-  range: 100
+  max_damage: 3
+  max_range: 100
   fpsCam: {fileID: 1627134623}
   muzzleflash: {fileID: 301109012}
-  manager: {fileID: 0}
 --- !u!4 &1523394458 stripped
 Transform:
   m_PrefabParentObject: {fileID: 442488, guid: ec78ebca7517fb745a45a931cb06d2bd, type: 2}

@@ -19,9 +19,10 @@ public class AnimController2 : MonoBehaviour {
     private GameObject zombieManager;
     private Manager zombieManagerScript;
     private CharacterController zombieController;
-
+    
     void Start()
     {
+       
         anim = GetComponent<Animator>();
 
         // Set a character controller if necessary
@@ -110,9 +111,10 @@ public class AnimController2 : MonoBehaviour {
 
 		// What to do when the zombie is dead (has no HP left)
 		if (HP == 0) {
-
-			// Disable the Character Controller's collider
-			if (zombieController != null) {
+            //for Audio
+            FindObjectOfType<AudioManager>().Play("gryphonDie");
+            // Disable the Character Controller's collider
+            if (zombieController != null) {
 				zombieController.enabled = false;
 			}
 

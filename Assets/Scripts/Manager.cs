@@ -15,8 +15,8 @@ public class Manager : MonoBehaviour
 	public GameObject zombieSpawnsParent;
 
     public GameObject healthBar;
-
-	public int maxObjects = 30;  
+    
+    public int maxObjects = 30;  
 
     public void setMaxObjects(int num) {
         this.maxObjects = num;
@@ -102,7 +102,7 @@ public class Manager : MonoBehaviour
         Debug.Log("zombie created, " + "current zombie count: " + this.spawnCount);
 		zombieArrow = Instantiate (zombieArrowPrefab, newZombie.transform.position, newZombie.transform.rotation, newZombie.transform ) as GameObject;
 		zombieArrow.transform.localScale = playerArrow.localScale;
-
+        
 
 
     }
