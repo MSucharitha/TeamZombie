@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 public class GameOverScore : MonoBehaviour {
 
-    // Use this for initialization
-    Text score;
+	// Use this for initialization
+	Text score;
 	void Start () {
 		score = GameObject.FindGameObjectWithTag("score").GetComponent<Text>();
-    }
+	}
 	
 	// Update is called once per frame
 	void Update()
