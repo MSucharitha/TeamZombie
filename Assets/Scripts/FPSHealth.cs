@@ -14,13 +14,13 @@ public class FPSHealth : MonoBehaviour {
     {
         int health = 0;
         System.Int32.TryParse(healthText.text.Split(':')[1].TrimEnd('%'), out health);
-        if (health - 25 <= 0)
+        if (health - 1 <= 0)
         {
             die();
         }
         else
         {
-            health -= 25;
+            health -= 1;
             healthText.text = "Health : " + health + "%";
         }
 
@@ -47,6 +47,21 @@ public class FPSHealth : MonoBehaviour {
             healthDamaged();
             Debug.Log("Player-Zombie collision");
             
+        }
+    }
+    void OnTriggerStay(Collider col)
+    {
+        //        Debug.Log("collision detected");
+
+        if (col.gameObject.GetComponent<AnimController2>() != null)
+        {
+            if (healthText == null)
+            {
+                healthText = GameObject.FindGameObjectWithTag("health").GetComponent<Text>();
+            }
+            healthDamaged();
+            Debug.Log("Player-Zombie collision");
+
         }
     }
 
