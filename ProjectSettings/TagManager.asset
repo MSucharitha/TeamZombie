@@ -12,6 +12,7 @@ TagManager:
   - instructions
   - exit
   - back
+  - health
   layers:
   - Default
   - TransparentFX
