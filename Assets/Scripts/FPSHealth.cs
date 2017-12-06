@@ -9,12 +9,21 @@ public class FPSHealth : MonoBehaviour {
     public ApplicationModel app;
 
 	public int gameOverSceneIndex = 2;
-
+    public int damageLevel;
+    public GameObject updatePlayerHealth;
+    public GameObject getPlayerHealth;
+    private float checkhealth;
     void OnTriggerEnter(Collider col)
     {
-//        Debug.Log("collision detected");
-
-        if (col.gameObject.GetComponent<AnimController2>() != null)
+        Debug.Log("collision detected");
+        if (updatePlayerHealth != null)
+        {
+            Debug.Log("call the OnPlayerAttacked method in LevelManager.cs");
+            updatePlayerHealth.GetComponent<LevelManager>().OnPlayerAttacked();
+        }
+        //checkhealth = getPlayerHealth.GetComponent<FPShealthUI>().healthPercentage;
+        Debug.Log("player checkhalth" + checkhealth);
+        if ((col.gameObject.GetComponent<AnimController2>() != null ) && (getPlayerHealth.GetComponent<FPShealthUI>().healthPercentage <= 0.0f))
         {
             Debug.Log("Player-Zombie collision");
             Text scoreText = GameObject.FindGameObjectWithTag("score").GetComponent<Text>();

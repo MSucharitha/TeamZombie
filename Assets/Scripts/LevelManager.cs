@@ -20,10 +20,17 @@ public class LevelManager : MonoBehaviour {
     private Text scoreText;
     private GameObject zombieManager;
     private Manager zombieManagerScript;
-   
 
+    public GameObject playerHealthObj;
+    private static float playerHP = 0.0f;
     // Use this for initialization
     void Start () {
+
+        if (playerHealthObj != null)
+        {
+            Debug.Log("Player health full beginning each level");
+            playerHealthObj.GetComponent<FPShealthUI>().SetHealth(-1.0f);
+        }
         zombieManager = GameObject.Find("EnemyManager");
         if (zombieManager != null)
         {
@@ -78,10 +85,17 @@ public class LevelManager : MonoBehaviour {
 
 	}
 
-	void OnPlayerAttacked() {
-		// Decrement the player health
+	public void OnPlayerAttacked() {
+        // Decrement the player health
 
-	}
+        if (playerHealthObj != null)
+        {
+            Debug.Log("Reduce player health by 25% when attacked"+playerHP);
+            playerHP = playerHP + 0.25f;
+            playerHealthObj.GetComponent<FPShealthUI>().UpdateHealth(playerHP);
+        }
+
+    }
 
 	void DisplayMessage(string msg) {
 		// TODO: Display a notification
