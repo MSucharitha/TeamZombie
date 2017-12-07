@@ -23,7 +23,7 @@ public class AnimController2 : MonoBehaviour {
     private FPSHealth fpsHealth;
     public GameObject healthbarObject;
 	public GameObject arrowObject;
-
+    private bool IsWearingSuit = false;
 	private float lastShootTime = -100f;
 
     void Start()
@@ -49,6 +49,9 @@ public class AnimController2 : MonoBehaviour {
 
         // Find player point-of-reference for movement script 
         player = GameObject.FindWithTag("Player");
+        if (player != null) {
+            fpsHealth = player.GetComponent<FPSHealth>();
+        }
         scoreText = GameObject.FindGameObjectWithTag("score").GetComponent<Text>();
         //find zombie and level manager
         levelManager = GameObject.Find("LevelManager");
@@ -61,7 +64,13 @@ public class AnimController2 : MonoBehaviour {
         {
             zombieManagerScript = zombieManager.GetComponent<Manager>();
         }
+        if (this.name.Contains("suit")) {
+            IsWearingSuit = true;
+        }
     }
+
+    private int interval = 1;
+    private float nextTime = 0;
 
     // Update is called once per frame
     void Update() {
@@ -85,23 +94,29 @@ public class AnimController2 : MonoBehaviour {
                 transform.Rotate(0f, rotateSpeed, 0f, Space.Self);
 
                 // Check if zombie is near player
-                float playerDistance = Vector3.Distance(player.transform.position, transform.position);               
-                fpsHealth = player.GetComponent<FPSHealth>();               
-                if (fpsHealth != null && this.name.Contains("suit"))
+                float playerDistance = Vector3.Distance(player.transform.position, transform.position);
+                //only the types of zombies wearing suits will attack you
+                if (fpsHealth != null && IsWearingSuit)
                 {
                     if (playerDistance < zombieAttackDistanceThreshold)
                     {
                         //play zombie attack animation
                         anim.SetBool("closeToMe", true);
                         //decrement player health 
-                        fpsHealth.healthDamaged(2);
-                        Debug.Log("attacked by zombie");                       
+                        if (Time.time >= nextTime)
+                        {
+                            nextTime += interval;
+                            //excute every interval seconds
+                            fpsHealth.healthDamaged(2);
+                            Debug.Log("attacked by zombie, time: " + Time.time);                            
+                        }                        
                     }
                     else
                     {
                         anim.SetBool("closeToMe", false);
                     }
-                }
+                }               
+                
 
                 //				// Check if player is near the zombie
                 //				float playerDistance = Vector3.Distance (player.transform.position, transform.position);
@@ -172,7 +187,7 @@ public class AnimController2 : MonoBehaviour {
 
             //increment score here
             int toAdd = 100;
-            if (this.name.Contains("suit")) {
+            if (IsWearingSuit) {
                 toAdd = 200;
             }
             levelManagerScript.incrementScore(toAdd);
@@ -194,15 +209,5 @@ public class AnimController2 : MonoBehaviour {
 				healthbarObject.GetComponent<HealthUI> ().Show ();
 			}
 		}
-
 	}
-
-    public void shot1() {
-        anim.SetInteger("life", 1);
-    }
-    public void shot0()
-    {
-        anim.SetInteger("life", 0);
-    }
-
 }
