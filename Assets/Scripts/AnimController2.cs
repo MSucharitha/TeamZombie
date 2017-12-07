@@ -12,7 +12,7 @@ public class AnimController2 : MonoBehaviour {
     public Transform playerLocation;
 	static float playerDistanceThreshold = 50f;
 	static float zombieDeathTimeout = 5f;    
-    private float zombieAttackDistanceThreshold = 10f;
+    private float zombieAttackDistanceThreshold = 5f;
     private GameObject player;
     private Text scoreText;
     private GameObject levelManager;   
@@ -23,7 +23,7 @@ public class AnimController2 : MonoBehaviour {
     private FPSHealth fpsHealth;
     public GameObject healthbarObject;
 	public GameObject arrowObject;
-
+    private bool IsWearingSuit = false;
 	private float lastShootTime = -100f;
 
     void Start()
@@ -49,6 +49,9 @@ public class AnimController2 : MonoBehaviour {
 
         // Find player point-of-reference for movement script 
         player = GameObject.FindWithTag("Player");
+        if (player != null) {
+            fpsHealth = player.GetComponent<FPSHealth>();
+        }
         scoreText = GameObject.FindGameObjectWithTag("score").GetComponent<Text>();
         //find zombie and level manager
         levelManager = GameObject.Find("LevelManager");
@@ -61,7 +64,13 @@ public class AnimController2 : MonoBehaviour {
         {
             zombieManagerScript = zombieManager.GetComponent<Manager>();
         }
+        if (this.name.Contains("suit")) {
+            IsWearingSuit = true;
+        }
     }
+
+	private float attackInterval = 1f; // The zombie attacks every x seconds
+	private float nextAttackTime = 0;
 
     // Update is called once per frame
     void Update() {
@@ -85,23 +94,31 @@ public class AnimController2 : MonoBehaviour {
                 transform.Rotate(0f, rotateSpeed, 0f, Space.Self);
 
                 // Check if zombie is near player
-                float playerDistance = Vector3.Distance(player.transform.position, transform.position);               
-                fpsHealth = player.GetComponent<FPSHealth>();               
-                if (fpsHealth != null && this.name.Contains("suit"))
+                float playerDistance = Vector3.Distance(player.transform.position, transform.position);
+                //only the types of zombies wearing suits will attack you
+                if (fpsHealth != null && IsWearingSuit)
                 {
+
+					Debug.Log ("HI!");
                     if (playerDistance < zombieAttackDistanceThreshold)
                     {
                         //play zombie attack animation
                         anim.SetBool("closeToMe", true);
-                        //decrement player health 
-                        fpsHealth.healthDamaged(2);
-                        Debug.Log("attacked by zombie");                       
+                        //decrement player health once attackInterval time is reached
+						float currTime = Time.time;
+                        if (currTime >= nextAttackTime)
+                        {
+							nextAttackTime = currTime +  attackInterval;
+                            fpsHealth.healthDamaged(10);
+                            Debug.Log("attacked by zombie, time: " + currTime);                            
+                        }                        
                     }
                     else
                     {
                         anim.SetBool("closeToMe", false);
                     }
-                }
+                }               
+                
 
                 //				// Check if player is near the zombie
                 //				float playerDistance = Vector3.Distance (player.transform.position, transform.position);
@@ -172,7 +189,7 @@ public class AnimController2 : MonoBehaviour {
 
             //increment score here
             int toAdd = 100;
-            if (this.name.Contains("suit")) {
+            if (IsWearingSuit) {
                 toAdd = 200;
             }
             levelManagerScript.incrementScore(toAdd);
@@ -194,15 +211,5 @@ public class AnimController2 : MonoBehaviour {
 				healthbarObject.GetComponent<HealthUI> ().Show ();
 			}
 		}
-
 	}
-
-    public void shot1() {
-        anim.SetInteger("life", 1);
-    }
-    public void shot0()
-    {
-        anim.SetInteger("life", 0);
-    }
-
 }
