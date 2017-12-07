@@ -13,6 +13,7 @@ public class FPSHealth : MonoBehaviour {
 	public int health = 100;
 	private float lastDamageTime = -100f;
 	private float damageEveryXSeconds = 0.5f;
+	public LevelManager levelManager;
 
 	public void Start() {
 		health = maxHealth;
@@ -62,14 +63,20 @@ public class FPSHealth : MonoBehaviour {
     }
 
     public void die() {
-        scoreText = GameObject.FindGameObjectWithTag("score").GetComponent<Text>();
-        int score = 0;
-        System.Int32.TryParse(scoreText.text.Split(':')[1], out score);
-        ApplicationModel.score = score;
-        SceneManager.LoadScene(gameOverSceneIndex);
+		if (GameObject.FindGameObjectWithTag ("score") != null) {
+			scoreText = GameObject.FindGameObjectWithTag ("score").GetComponent<Text> ();
+			int score = 0;
+			System.Int32.TryParse(scoreText.text.Split(':')[1], out score);
+			ApplicationModel.score = score;
+		} else {
+			ApplicationModel.score = levelManager.score;
+		}
+		SceneManager.LoadScene(gameOverSceneIndex);
     }
 
     void OnTriggerEnter(Collider col) {
+//		Debug.Log ("collision detected");
+
 		// Apply damage every 0.5 seconds if collided into a zombie
 		if (col.gameObject.tag == "zombie") {
 			float currTime = Time.time;
@@ -80,7 +87,9 @@ public class FPSHealth : MonoBehaviour {
         }
     }
 
-    void OnTriggerStay(Collider col) {
+	void OnTriggerStay(Collider col) {
+//		Debug.Log ("collision detected 2");
+
 		// Apply damage every 0.5 seconds if collided into a zombie
 		if (col.gameObject.tag == "zombie") {
 			float currTime = Time.time;

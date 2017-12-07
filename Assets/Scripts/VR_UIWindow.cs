@@ -15,6 +15,10 @@ public class VR_UIWindow : MonoBehaviour {
 
 	private Material material;
 
+	[System.Serializable]
+	public enum HTCMode {Standing, RoomScale};
+	public HTCMode mode;
+
 	void Start() {
 		if (panelColor == null) {
 			panelColor = Color.gray;
@@ -43,7 +47,14 @@ public class VR_UIWindow : MonoBehaviour {
 	public void Update() {
 		// Move to face the player
 		Vector3 newPosition = player.transform.position + player.transform.forward * 1f; 
-		newPosition.Set (newPosition.x, newPosition.y + 5.1f + heightOffset, newPosition.z);
+		float yOffset;
+		if (mode == HTCMode.Standing) {
+			yOffset = 5.1f;
+		} else {
+			yOffset = 0.3f;
+		}
+
+		newPosition.Set (newPosition.x, newPosition.y + yOffset + heightOffset, newPosition.z);
 		transform.position = newPosition;
 
 		Vector3 lookAtPosition = player.transform.position;

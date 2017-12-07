@@ -13,14 +13,14 @@ public class AnimController2 : MonoBehaviour {
 	static float playerDistanceThreshold = 50f;
 	static float zombieDeathTimeout = 5f;    
     private float zombieAttackDistanceThreshold = 5f;
-    private GameObject player;
+    public GameObject player;
     private Text scoreText;
     private GameObject levelManager;   
     private LevelManager levelManagerScript;
     private GameObject zombieManager;
     private Manager zombieManagerScript;
     private CharacterController zombieController;
-    private FPSHealth fpsHealth;
+	public FPSHealth fpsHealth;
     public GameObject healthbarObject;
 	public GameObject arrowObject;
     private bool IsWearingSuit = false;
@@ -49,6 +49,7 @@ public class AnimController2 : MonoBehaviour {
 
         // Find player point-of-reference for movement script 
         player = GameObject.FindWithTag("Player");
+		Debug.Log (player);
         if (player != null) {
             fpsHealth = player.GetComponent<FPSHealth>();
         }
