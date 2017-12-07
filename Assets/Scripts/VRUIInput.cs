@@ -58,7 +58,7 @@ public class VRUIInput : MonoBehaviour
 		Debug.Log ("Trigger Pressed");
 		clickHoveredButton ();
 
-		if (EventSystem.current.currentSelectedGameObject != null)
+		if (EventSystem.current != null && EventSystem.current.currentSelectedGameObject != null)
 		{
 			ExecuteEvents.Execute(EventSystem.current.currentSelectedGameObject, new PointerEventData(EventSystem.current), ExecuteEvents.submitHandler);
 		}

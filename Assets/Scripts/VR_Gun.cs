@@ -11,6 +11,7 @@ public class VR_Gun : MonoBehaviour {
 	public Gun[] guns;
 	private GameObject currentGun;
 	private int gunIndex = 0;
+	private int gunsAvailable = 1;
 
 	public ParticleSystem muzzleFlash;
 	public Camera fpsCam;
@@ -22,7 +23,6 @@ public class VR_Gun : MonoBehaviour {
 	// Following invisible objects are to determine direction
 	public GameObject startSphere;
 	public GameObject endSphere;
-//	public GameObject bullet;
 	public bool seeSpheres = false;
 
 	void Awake() {
@@ -69,7 +69,7 @@ public class VR_Gun : MonoBehaviour {
 		// Shoot every 0.5s if the trigger is held down
 		if (device.GetPress (SteamVR_Controller.ButtonMask.Trigger)) {
 			float currTime = Time.time;
-			if (currTime - lastShoot > 0.5f) {
+			if (currTime - lastShoot > guns[gunIndex].rapidShootDelay) {
 				Shoot ();
 				lastShoot = currTime;
 			}
@@ -118,20 +118,21 @@ public class VR_Gun : MonoBehaviour {
 
 	}
 
-	void SwitchGuns(int mode) {
+	public void SwitchGuns(int mode) {
 		// Switch gun to the next in line
 		if (mode == 1) {
-			gunIndex = (gunIndex + 1) % guns.Length;
+			gunIndex = (gunIndex + 1) % gunsAvailable;
 		} else if (mode == -1) {
-			gunIndex = (gunIndex - 1 + guns.Length) % guns.Length;
+			gunIndex = (gunIndex - 1 + gunsAvailable) % guns.Length;
 		}
 
 		SetGun (gunIndex);
 	}
 
-	void Shoot() {
+	public void Shoot() {
 		// Play gun flash
 		muzzleFlash.Play();
+		gunAnimator.Rewind ();
 		gunAnimator.Play ("Shoot");
 
 		// Check if there's a collision
@@ -163,6 +164,10 @@ public class VR_Gun : MonoBehaviour {
 		}
 	}
 
+	public void IncreaseGunAvailability(int numAvailable) {
+		gunsAvailable = numAvailable;
+	}
+
 	[System.Serializable]
 	public struct Gun {
 		public GameObject gunObject;
@@ -170,5 +175,6 @@ public class VR_Gun : MonoBehaviour {
 		public Vector3 muzzleLocation;
 		public int damage;
 		public float maxDistance;
+		public float rapidShootDelay;
 	}
 }

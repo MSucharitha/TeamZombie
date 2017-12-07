@@ -45,7 +45,10 @@ public class FPSHealth : MonoBehaviour {
 
 		// Get the healthText gameobject (might be removed over time)
 		if (healthText == null) {
-            healthText = GameObject.FindGameObjectWithTag("health").GetComponent<Text>();
+			GameObject healthObject = GameObject.FindGameObjectWithTag ("health");
+			if (healthObject != null) {
+            	healthText = healthObject.GetComponent<Text>();
+			}
         }
 
 		// Update the health

@@ -7,27 +7,38 @@ public class FPSHealthVR : MonoBehaviour {
 	public int gameOverSceneIndex = 2;
 	public int health;
 	public int maxHealth = 100;
+	public int score;
 	public GameObject HealthFillPrefab;
+	public GameObject ScorePrefab;
+	public LevelManager levelManager;
+
 	private GameObject HealthFill;
-	private UnityEngine.UI.Text textToUpdate;
+	private UnityEngine.UI.Text healthTextToUpdate;
 	private UnityEngine.UI.Image HealthFillImage;
 	private FPSHealth healthManager;
+
+	private UnityEngine.UI.Text scoreTextToUpdate;
 
 	// Use this for initialization
 	void Start () {
 		healthManager = GetComponent<FPSHealth> ();
 		if (healthManager != null) {
 			SetHealth (healthManager.maxHealth);
-		} else {
+		} else {  
 			SetHealth (100);
+		}
+		if (levelManager != null) {
+			score = levelManager.score;
 		}
 	}
 
 	void Update() {
 		// Check Player Health and Update Health Accordingly
-//		ApplyHealthDamage(1);
 		if (healthManager.health != health) {
 			UpdateHealth (healthManager.health);
+		}
+		if (score != levelManager.score) {
+			UpdateScore (levelManager.score);
 		}
 
 	}
@@ -42,20 +53,24 @@ public class FPSHealthVR : MonoBehaviour {
 		health = newHealth;
 
 		// Update UI elements: Text and Health Bar Fill Size
-		textToUpdate = HealthFillPrefab.transform.GetChild(1).GetChild(0).GetComponent<UnityEngine.UI.Text>();
-		textToUpdate.text = "Health: " + health.ToString() + "/" + maxHealth.ToString();
+		healthTextToUpdate = HealthFillPrefab.transform.GetChild(1).GetChild(0).GetComponent<UnityEngine.UI.Text>();
+		healthTextToUpdate.text = "Health: " + health.ToString() + "/" + maxHealth.ToString();
 		UpdateHealthBar ();
 	}
 
-//	public void ApplyHealthDamage(int damage) {
-//		// Reduce Health
-//		health = (health - damage + maxHealth) % maxHealth;
-//
-//		// Update UI elements: Text and Health Bar Fill Size
-//		textToUpdate = HealthFillPrefab.transform.GetChild(1).GetChild(0).GetComponent<UnityEngine.UI.Text>();
-//		textToUpdate.text = "Health: " + health.ToString() + "/" + maxHealth.ToString();
-//		UpdateHealthBar ();
-//	}
+	public void UpdateScore(int newScore) {
+		// Update score
+		score = newScore;
+
+		// Update UI elements: text
+		scoreTextToUpdate = ScorePrefab.transform.GetChild(1).GetChild(0).GetComponent<UnityEngine.UI.Text>();
+		scoreTextToUpdate.text = "Score: " + padScore(score);
+	}
+
+	private string padScore(int score) {
+		string scoreString = score.ToString ();
+		return (new string('0', 6 - scoreString.Length) + scoreString);
+	}
 
 	public void UpdateHealthBar() {
 		// Get HealthFill Image
