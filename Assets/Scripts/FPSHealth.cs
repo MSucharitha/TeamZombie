@@ -8,82 +8,83 @@ public class FPSHealth : MonoBehaviour {
     [SerializeField] public int index;
     public ApplicationModel app;
     private Text healthText;
+	private Text scoreText;
+	public int maxHealth = 100;
+	public int health = 100;
+	private float lastDamageTime = -100f;
+	private float damageEveryXSeconds = 0.5f;
+
+	public void Start() {
+		health = maxHealth;
+	}
 
     public int gameOverSceneIndex = 2;
-    public void healthDamaged(int damage)
-    {
-        int health = 0;
-        if (healthText == null)
-        {
-            healthText = GameObject.FindGameObjectWithTag("health").GetComponent<Text>();
-        }
-        System.Int32.TryParse(healthText.text.Split(':')[1].TrimEnd('%'), out health);
-        if (health - 1 <= 0)
-        {
-            die();
-        }
-        else
-        {
-            health -= damage;
-            healthText.text = "Health : " + health + "%";
-        }
+    public void healthDamaged(int damage) {
+		// Calculate the new health
+		health = Mathf.Clamp(health - damage, 0, maxHealth);
 
-       // Debug.Log("current health " + health);
+		// Update the health text
+		if (healthText == null) {
+			GameObject healthObject = GameObject.FindGameObjectWithTag ("health");
+			if (healthObject != null) {
+				healthText = healthObject.GetComponent<Text>();
+			}
+		}
+		if (healthText != null) { // might not exist (as in HTC Vive)
+			healthText.text = "Health : " + health + "%";
+		}
+
+		// If the health is 0, kill the player
+		if (health <= 0) {
+			die ();
+		}
     }
 
 
-    public void healthIncreaseBonus(int bonus)
-    {
-        int health = 0;
-        if (healthText == null)
-        {
+    public void healthIncreaseBonus(int bonus) {
+
+		// Get the healthText gameobject (might be removed over time)
+		if (healthText == null) {
             healthText = GameObject.FindGameObjectWithTag("health").GetComponent<Text>();
         }
-        System.Int32.TryParse(healthText.text.Split(':')[1].TrimEnd('%'), out health);
-        if(health<100)
-        {
-            health = Mathf.Min(100, health + bonus);
-            healthText.text = "Health : " + health + "%";
-        }
 
+		// Update the health
+		if (health < maxHealth) {
+			health = Mathf.Min (maxHealth, health + bonus);
 
+			if (healthText != null) { // Might be null (as in for the HTC Vive)
+				healthText.text = "Health : " + health + "%";
+			}
+		}
     }
 
-    public void die()
-    {
-        Text scoreText = GameObject.FindGameObjectWithTag("score").GetComponent<Text>();
+    public void die() {
+        scoreText = GameObject.FindGameObjectWithTag("score").GetComponent<Text>();
         int score = 0;
         System.Int32.TryParse(scoreText.text.Split(':')[1], out score);
         ApplicationModel.score = score;
         SceneManager.LoadScene(gameOverSceneIndex);
     }
-    void OnTriggerEnter(Collider col)
-    {
-//        Debug.Log("collision detected");
 
-        if (col.gameObject.GetComponent<AnimController2>() != null)
-        {
-            if (healthText == null)
-            {
-                healthText=GameObject.FindGameObjectWithTag("health").GetComponent<Text>();
-            }
-            healthDamaged(5);
-            //Debug.Log("Player-Zombie collision");
-           
+    void OnTriggerEnter(Collider col) {
+		// Apply damage every 0.5 seconds if collided into a zombie
+		if (col.gameObject.tag == "zombie") {
+			float currTime = Time.time;
+			if (currTime - lastDamageTime > damageEveryXSeconds) {
+				lastDamageTime = currTime;
+				healthDamaged (10);
+			}
         }
     }
-    void OnTriggerStay(Collider col)
-    {
-        //        Debug.Log("collision detected");
 
-        if (col.gameObject.GetComponent<AnimController2>() != null)
-        {
-            if (healthText == null)
-            {
-                healthText = GameObject.FindGameObjectWithTag("health").GetComponent<Text>();
-            }
-  //          healthDamaged(1);
-            //Debug.Log("Player-Zombie collision");
+    void OnTriggerStay(Collider col) {
+		// Apply damage every 0.5 seconds if collided into a zombie
+		if (col.gameObject.tag == "zombie") {
+			float currTime = Time.time;
+			if (currTime - lastDamageTime > damageEveryXSeconds) {
+				lastDamageTime = currTime;
+				healthDamaged (10);
+			}
 
         }
     }
