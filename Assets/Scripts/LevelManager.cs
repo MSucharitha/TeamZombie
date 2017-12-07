@@ -51,8 +51,9 @@ public class LevelManager : MonoBehaviour {
 		totalZombiesKilled = 0;
 		StartNewLevel ();
 
-		notificationSystem.SetActive (false);
+
 		if (notificationSystem != null) {
+			notificationSystem.SetActive (false);
 			notificationText = notificationSystem.transform.GetChild (1).GetChild (0).GetComponent<UnityEngine.UI.Text> ();
 		}
     }
@@ -61,7 +62,7 @@ public class LevelManager : MonoBehaviour {
 	void Update () {
 
 		// Deactivate notification system if it's been here for at least 5s or however long
-		if (notificationSystem.activeSelf) {
+		if (notificationSystem != null && notificationSystem.activeSelf) {
 			float currTime = Time.time;
 			if (currTime - lastNotificationTime > notificationActiveTime) {
 				notificationSystem.SetActive (false);

@@ -2119,7 +2119,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 161073456}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 607, y: 369.2, z: 0}
+  m_LocalPosition: {x: 316.5, y: 368.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1921814624}
@@ -9093,6 +9093,8 @@ MonoBehaviour:
   levelProps: []
   targetPlatform: 0
   Gun: {fileID: 857502590}
+  notificationSystem: {fileID: 0}
+  notificationActiveTime: 5
 --- !u!4 &499022384
 Transform:
   m_ObjectHideFlags: 0
@@ -10018,6 +10020,8 @@ MonoBehaviour:
   speed: 2
   rotationSpeed: 75
   playerLocation: {fileID: 0}
+  player: {fileID: 0}
+  fpsHealth: {fileID: 0}
   healthbarObject: {fileID: 0}
   arrowObject: {fileID: 0}
 --- !u!4 &568677772 stripped
@@ -19784,7 +19788,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 781406727}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 607, y: 369.2, z: 0}
+  m_LocalPosition: {x: 316.5, y: 368.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1274200226}
@@ -22002,7 +22006,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 963839372}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12151, y: 7392.2, z: -37.6}
+  m_LocalPosition: {x: 6341, y: 7382.2, z: -37.6}
   m_LocalScale: {x: 20, y: 20, z: 20}
   m_Children:
   - {fileID: 167860063}
@@ -26570,6 +26574,8 @@ MonoBehaviour:
   speed: 2
   rotationSpeed: 75
   playerLocation: {fileID: 0}
+  player: {fileID: 0}
+  fpsHealth: {fileID: 0}
   healthbarObject: {fileID: 0}
   arrowObject: {fileID: 0}
 --- !u!1001 &1263240129
@@ -33436,7 +33442,92 @@ MonoBehaviour:
   app: {fileID: 0}
   maxHealth: 100
   health: 100
+  levelManager: {fileID: 0}
   gameOverSceneIndex: 2
+--- !u!1 &1907819782 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100002, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
+  m_PrefabInternal: {fileID: 1907819778}
+--- !u!82 &1907819783
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1907819782}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 1aad852f0a849a74789608b7ee0e828d, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &1907819786
 MonoBehaviour:
   m_ObjectHideFlags: 0
