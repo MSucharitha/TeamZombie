@@ -116,6 +116,9 @@ public class Manager : MonoBehaviour
         newZombie.tag = "zombie";
         
 		newZombie.transform.SetParent (zombieSpawnsParent.transform);
+		Vector3 scalePrefab = newZombie.transform.localScale;
+		Vector3 scaleParent = transform.localScale;
+		newZombie.transform.localScale = new Vector3 (scalePrefab.x * scaleParent.x, scalePrefab.y * scaleParent.y, scalePrefab.z * scaleParent.z);
         incrementSpawnCount();
 
         // Add resource manager to remove zombies that are too far away from the player
