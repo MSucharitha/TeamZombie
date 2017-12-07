@@ -40,7 +40,7 @@ public class GenerateTrees : MonoBehaviour {
 
 			float radius;
 			float angle;
-			float playerAngle = Vector3.Angle (Vector3.forward, player.transform.forward);
+			// float playerAngle = Vector3.Angle (Vector3.forward, player.transform.forward);
 
 
 			// Randomly get a radial distance and angle from the player
