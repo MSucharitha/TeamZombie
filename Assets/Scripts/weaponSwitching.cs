@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class weaponSwitching : MonoBehaviour {
 
-    public int slectedWeapon = 0;
+    public int selectedMainWeapon = 0;
 	// Use this for initialization
 	void Start () {
         selectWeapon();
@@ -12,60 +12,60 @@ public class weaponSwitching : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        int prevWeapon = slectedWeapon;
+        int prevWeapon = selectedMainWeapon;
         if (Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
-            if (slectedWeapon >= transform.childCount - 1)
+            if (selectedMainWeapon >= transform.childCount - 1)
             {
-                slectedWeapon = 0;
+                selectedMainWeapon = 0;
             }
             else
             {
-                slectedWeapon++;
+                selectedMainWeapon++;
             }
 
         }
 
         if (Input.GetAxis("Mouse ScrollWheel") < 0f)
         {
-            if (slectedWeapon <= 0)
+            if (selectedMainWeapon <= 0)
             {
-                slectedWeapon = transform.childCount - 1;
+                selectedMainWeapon = transform.childCount - 1;
             }
             else
             {
-                slectedWeapon--;
+                selectedMainWeapon--;
             }
 
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1) )
         {
-            slectedWeapon = 0;
+            selectedMainWeapon = 0;
         }
         if (Input.GetKeyDown(KeyCode.Alpha2) && transform.childCount >= 2)
         {
-            slectedWeapon = 1;
+            selectedMainWeapon = 1;
         }
         if (Input.GetKeyDown(KeyCode.Alpha3) && transform.childCount >= 3)
         {
-            slectedWeapon = 2;
+            selectedMainWeapon = 2;
         }
         if (Input.GetKeyDown(KeyCode.Alpha4) && transform.childCount >= 4)
         {
-            slectedWeapon = 3;
+            selectedMainWeapon = 3;
         }
-        if (prevWeapon != slectedWeapon)
+        if (prevWeapon != selectedMainWeapon)
         {
             selectWeapon();
         }
     }
-    void selectWeapon()
+    public void selectWeapon()
     {
         int i = 0;
         foreach (Transform weapon in transform)
         {
-            if (i == slectedWeapon)
+            if (i == selectedMainWeapon)
             {
                 weapon.gameObject.SetActive(true);
             }

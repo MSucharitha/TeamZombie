@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class LevelManager : MonoBehaviour {
 
 	public int numZombiesKilled;
-	private int score = 0;
+	public int score = 0;
 	public int playerHealth = 10;
     public int level;
 	public LevelProps[] levelProps;
@@ -22,6 +22,16 @@ public class LevelManager : MonoBehaviour {
     private GameObject zombieManager;
     private Manager zombieManagerScript;
 
+	[System.Serializable]
+	public enum TargetPlatform {GoogleCardboard, HTCVive};
+	public TargetPlatform targetPlatform;
+	public GameObject Gun;
+
+	public GameObject notificationSystem;
+	private UnityEngine.UI.Text notificationText;
+	private float lastNotificationTime = -1000f;
+	public float notificationActiveTime = 5f;
+
 
     // Use this for initialization
     void Start() {
@@ -34,23 +44,38 @@ public class LevelManager : MonoBehaviour {
         player = GameObject.FindWithTag("Player");
         if (player != null) {
             fpsHealth = player.GetComponent<FPSHealth>();
-        }       
+        }
 
         //to test levels
         level = 0;
 		totalZombiesKilled = 0;
 		StartNewLevel ();
+
+		notificationSystem.SetActive (false);
+		if (notificationSystem != null) {
+			notificationText = notificationSystem.transform.GetChild (1).GetChild (0).GetComponent<UnityEngine.UI.Text> ();
+		}
     }
 	
 	// Update is called once per frame
 	void Update () {
-        
+
+		// Deactivate notification system if it's been here for at least 5s or however long
+		if (notificationSystem.activeSelf) {
+			float currTime = Time.time;
+			if (currTime - lastNotificationTime > notificationActiveTime) {
+				notificationSystem.SetActive (false);
+			}
+		}
 	}
 
 	void StartNewLevel() {
 		level += 1;
 		totalZombiesKilled += numZombiesKilled;
 		numZombiesKilled = 0;
+
+		string message = "Reached Level " + level + "!";
+
         //add bonus health points for player
         if (fpsHealth != null) {
             fpsHealth.healthIncreaseBonus(20);
@@ -73,6 +98,32 @@ public class LevelManager : MonoBehaviour {
 		// Get current time for a potential time kill bonus
 		levelStartTime = Time.time;
 		levelTimeBonusLimit = (float) maxNumZombiesInLevel;
+
+		// Switch Guns or Increase Gun Availability
+		// Levels to switch: [3, 5]
+		if (targetPlatform == TargetPlatform.GoogleCardboard) {
+			if (level == 3 || level == 5) {
+				message += " Gained new weapon!";
+				Gun.GetComponent<weaponSwitching>().selectWeapon();
+			}
+		} else if (targetPlatform == TargetPlatform.HTCVive) {
+			if (level == 3) {
+				message += " Gained new weapon!";
+				Gun.GetComponent<VR_Gun> ().IncreaseGunAvailability (2);
+			} else if (level == 5) {
+				message += " Gained new weapon!";
+				Gun.GetComponent<VR_Gun> ().IncreaseGunAvailability (3);
+			}
+		}
+
+		// Apply notification
+		if (notificationSystem != null && level > 1) {
+			notificationSystem.SetActive (true);
+			lastNotificationTime = Time.time;
+
+			notificationText = notificationSystem.transform.GetChild (1).GetChild (0).GetComponent<UnityEngine.UI.Text> ();
+			notificationText.text = message;
+		}
 	}
 
 	public void OnZombieKill() {
@@ -113,7 +164,9 @@ public class LevelManager : MonoBehaviour {
         if (scoreObject != null) {
             scoreText = scoreObject.GetComponent<Text>();
         }
-        scoreText.text = "Score: " + this.score;
+		if (scoreObject != null) {
+			scoreText.text = "Score: " + this.score;
+		}
 
 		if (this.score > 1000 * this.level) {
 			StartNewLevel();

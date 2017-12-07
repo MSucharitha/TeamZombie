@@ -10,6 +10,8 @@ public class VR_UIWindow : MonoBehaviour {
 	public Color panelColor;
 	public Color textColor;
 	public GameObject player;
+	public float heightOffset = 0;
+	public bool RotateYForLookAtFunction = false;
 
 	private Material material;
 
@@ -40,14 +42,19 @@ public class VR_UIWindow : MonoBehaviour {
 
 	public void Update() {
 		// Move to face the player
-		Vector3 newPosition = player.transform.position + player.transform.forward * 1.5f; 
-		newPosition.Set (newPosition.x, newPosition.y + 5.5f, newPosition.z);
+		Vector3 newPosition = player.transform.position + player.transform.forward * 1f; 
+		newPosition.Set (newPosition.x, newPosition.y + 5.1f + heightOffset, newPosition.z);
 		transform.position = newPosition;
 
 		Vector3 lookAtPosition = player.transform.position;
-		lookAtPosition.Set (lookAtPosition.x, newPosition.y - 1f, lookAtPosition.z);
+		float rotateY = newPosition.y;
+		if (RotateYForLookAtFunction) {
+			rotateY = rotateY - 1f;
+		}
+		lookAtPosition.Set (lookAtPosition.x, rotateY, lookAtPosition.z);
 		transform.LookAt (lookAtPosition);
 		transform.Rotate (0f, 180f, 0f);
+
 	}
 
 	public void UpdateText(int index, string newMessage) {

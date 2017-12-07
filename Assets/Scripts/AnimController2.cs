@@ -52,7 +52,10 @@ public class AnimController2 : MonoBehaviour {
         if (player != null) {
             fpsHealth = player.GetComponent<FPSHealth>();
         }
-        scoreText = GameObject.FindGameObjectWithTag("score").GetComponent<Text>();
+		GameObject scoreObject = GameObject.FindGameObjectWithTag ("score");
+		if (scoreObject != null) {
+			scoreText = scoreObject.GetComponent<Text> ();
+		}
         //find zombie and level manager
         levelManager = GameObject.Find("LevelManager");
         if (levelManager != null)
