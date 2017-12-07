@@ -6,24 +6,24 @@ public class Manager : MonoBehaviour
 {
     //  public PlayerHealth playerHealth;       // Reference to the player's heatlh.
     public Transform playerLocation;
-    public GameObject[] zombies;                // The enemy prefab to be spawned.
-    public float spawnTime;            // 2 seconds between each spawn.
-    public Transform spawnPoint;         // An array of the spawn points this enemy can spawn from.
+    public GameObject[] zombies;                // The enemy prefab to be spawned.    
+    public Transform spawnPoint;
+    private float spawnTime = 5;            // 2 seconds between each spawn.
+    private int maxObjects = 20;
+
     public GameObject zombieArrowPrefab;                // The enemy prefab to be spawned.
     private GameObject zombieArrow;
     public Transform playerArrow;
 	public GameObject zombieSpawnsParent;
-
     public GameObject healthBar;
-
-	public int maxObjects = 30;  
+	
 
     public void setMaxObjects(int num) {
         this.maxObjects = num;
     }
 
-    // number of objects currently spawned
-    private int spawnCount = 5;
+    // number of objects currently spawned, starting at 0 or 5?
+    private int spawnCount = 0;
 
     public void resetSpawnCount() {
         spawnCount = 0;
@@ -41,10 +41,15 @@ public class Manager : MonoBehaviour
         this.spawnCount--;
     }
 
+
+    public void setSpawnTime(float newTime)
+    {
+        this.spawnTime = newTime;
+    }
+
     void Start()  
     {
         InvokeRepeating("Spawn", 0, spawnTime);  
-
     }
 
     void Spawn()
@@ -57,26 +62,48 @@ public class Manager : MonoBehaviour
 
     }
 
-    public void setSpawnTime(float newTime) {
-        this.spawnTime = newTime;
+    private int zombieTypeLowerBound = 0;
+    private int zombieTypeUpperBound = 1;
+    public void addZombieTypes(int level) {
+        //todo length - 1?
+        if (level <= 3)
+        {
+            zombieTypeUpperBound = Mathf.Min(zombies.Length, level);
+        }
+        else if (level == 4)
+        {
+            zombieTypeUpperBound = Mathf.Min(zombies.Length, 5);
+        }
+        else if (level == 5)
+        {
+            zombieTypeUpperBound = Mathf.Min(zombies.Length, 7);
+        }
+        else if (level == 6)
+        {
+            zombieTypeLowerBound = 2;
+            zombieTypeUpperBound = Mathf.Min(zombies.Length, 8);
+        }
+        else if (level == 7)
+        {
+            zombieTypeLowerBound = 4;
+            zombieTypeUpperBound = Mathf.Min(zombies.Length, 8);
+        }
+        else {
+            zombieTypeLowerBound = 6;
+            zombieTypeUpperBound = Mathf.Min(zombies.Length, 8);
+        }
+
     }
 
 
     void SpawnEnemy(){
 
-    // Find a random index between zero and one less than the number of spawn points.
-      //  int spawnPointIndex = Random.Range(0, spawnPoints.Length);
-
-        int randomRadius = Random.Range(60, 100);
+        int randomRadius = Random.Range(40, 75);
         float randomAngle = Random.Range(0, 2 * Mathf.PI);
-
-        int signX = Random.Range(0, 1);
-        if (signX == 0) { signX = -1; };
-        int signZ = Random.Range(0, 1);
-        if (signZ == 0) { signZ = -1; };
-        int random_zombie = Random.Range(0, zombies.Length);
+       
+        int random_zombie = Random.Range(zombieTypeLowerBound, zombieTypeUpperBound);
+        Debug.Log("random type " + random_zombie);
         int random_angle = Random.Range(0, 360);
-        Debug.Log("random radius: " + randomRadius + " random x: " + randomRadius * Mathf.Cos(randomAngle) + " random z: " +  randomRadius * Mathf.Sin(randomAngle));
         spawnPoint.position = new Vector3(playerLocation.position.x + randomRadius * Mathf.Cos(randomAngle), 0, playerLocation.position.z + randomRadius * Mathf.Sin(randomAngle));
 
        // Vector3 targetDir = target.position - transform.position;
@@ -106,7 +133,7 @@ public class Manager : MonoBehaviour
 		zombieAnimController.healthbarObject = zombieHealthBar;
 		zombieHealthBar.GetComponent<HealthUI> ().Hide ();
 
-        Debug.Log("zombie created, " + "current zombie count: " + this.spawnCount);
+        //Debug.Log("zombie created, " + "current zombie count: " + this.spawnCount);
 		zombieArrow = Instantiate (zombieArrowPrefab, newZombie.transform.position, newZombie.transform.rotation, newZombie.transform ) as GameObject;
 		zombieArrow.transform.localScale = playerArrow.localScale;
 		Vector3 arrowPos = zombieArrow.transform.position;

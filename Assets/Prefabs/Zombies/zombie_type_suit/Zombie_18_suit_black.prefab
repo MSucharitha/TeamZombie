@@ -913,7 +913,7 @@ Transform:
   m_GameObject: {fileID: 1449978005556250}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 3, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 4507193620416210}
   - {fileID: 4642595066573446}
@@ -1034,6 +1034,8 @@ MonoBehaviour:
   speed: 5
   rotationSpeed: 75
   playerLocation: {fileID: 0}
+  healthbarObject: {fileID: 0}
+  arrowObject: {fileID: 0}
 --- !u!137 &137723702244554470
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
