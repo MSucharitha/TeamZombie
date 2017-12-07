@@ -10,9 +10,13 @@ public class FPSHealth : MonoBehaviour {
     private Text healthText;
 
     public int gameOverSceneIndex = 2;
-    public void healthDamaged()
+    public void healthDamaged(int damage)
     {
         int health = 0;
+        if (healthText == null)
+        {
+            healthText = GameObject.FindGameObjectWithTag("health").GetComponent<Text>();
+        }
         System.Int32.TryParse(healthText.text.Split(':')[1].TrimEnd('%'), out health);
         if (health - 1 <= 0)
         {
@@ -20,12 +24,31 @@ public class FPSHealth : MonoBehaviour {
         }
         else
         {
-            health -= 1;
+            health -= damage;
+            healthText.text = "Health : " + health + "%";
+        }
+
+       // Debug.Log("current health " + health);
+    }
+
+
+    public void healthIncreaseBonus(int bonus)
+    {
+        int health = 0;
+        if (healthText == null)
+        {
+            healthText = GameObject.FindGameObjectWithTag("health").GetComponent<Text>();
+        }
+        System.Int32.TryParse(healthText.text.Split(':')[1].TrimEnd('%'), out health);
+        if(health<100)
+        {
+            health = Mathf.Min(100, health + bonus);
             healthText.text = "Health : " + health + "%";
         }
 
 
     }
+
     public void die()
     {
         Text scoreText = GameObject.FindGameObjectWithTag("score").GetComponent<Text>();
@@ -44,9 +67,9 @@ public class FPSHealth : MonoBehaviour {
             {
                 healthText=GameObject.FindGameObjectWithTag("health").GetComponent<Text>();
             }
-            healthDamaged();
-            Debug.Log("Player-Zombie collision");
-            
+            healthDamaged(5);
+            //Debug.Log("Player-Zombie collision");
+           
         }
     }
     void OnTriggerStay(Collider col)
@@ -59,8 +82,8 @@ public class FPSHealth : MonoBehaviour {
             {
                 healthText = GameObject.FindGameObjectWithTag("health").GetComponent<Text>();
             }
-            healthDamaged();
-            Debug.Log("Player-Zombie collision");
+  //          healthDamaged(1);
+            //Debug.Log("Player-Zombie collision");
 
         }
     }

@@ -6,7 +6,7 @@ using UnityEngine.XR;
 
 public class Gun : MonoBehaviour {
 
-    public int max_damage = 3;
+    public int max_damage;
     public float max_range = 100f;
     public Camera fpsCam;
     public ParticleSystem muzzleflash;
@@ -51,7 +51,7 @@ public class Gun : MonoBehaviour {
 
 			GameObject HitObj = hit.collider.gameObject;
 			
-			print ("Shot Object Tag: " + HitObj.transform.tag);
+			//print ("Shot Object Tag: " + HitObj.transform.tag);
 			// Debug.Log (message: hit.transform.name + "Fired");
 			// print (hit.collider.name);
 			// System.Console.WriteLine (hit.collider.name);
@@ -59,12 +59,20 @@ public class Gun : MonoBehaviour {
 			if (HitObj.transform.tag == "zombie") {
 
 				// Call the shooting function for the zombie
-				AnimController2 zombieCtrl = HitObj.GetComponent<AnimController2> ();
-
+				AnimController2 zombieController = HitObj.GetComponent<AnimController2> ();
                 
-                int shot_damage = 1;
-                if (hit.distance < max_range)
-                    shot_damage = (int) ((1 - hit.distance / max_range) * max_damage);                
+                int shot_damage = 0;
+
+                if (hit.distance < max_range / 2)
+                {
+                    shot_damage = max_damage;
+                }
+                else if (hit.distance < max_range)
+                {
+                    shot_damage = max_damage/2;
+                }
+
+                //    shot_damage = (int) ((1 - hit.distance / max_range) * max_damage);                
 
                 if (hit.point.y >= hit.collider.bounds.size.y * 5 / 8)
                 {
@@ -75,7 +83,7 @@ public class Gun : MonoBehaviour {
                     //scoreText.text = "Bonus Score: " + score + "";
                 }
                 Debug.Log("damage: " + shot_damage);
-                zombieCtrl.shoot (shot_damage);
+                zombieController.shoot (shot_damage);
 
                 //// Legacy code for later consideration of weapon type
                 /*

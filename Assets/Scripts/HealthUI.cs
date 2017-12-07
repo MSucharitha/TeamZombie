@@ -52,7 +52,7 @@ public class HealthUI : MonoBehaviour {
 
 		// Guarantee that the health never goes above 1 or below 0
 		float healthPercentage = Mathf.Clamp01((float) health / (float) maxHealth);
-		Debug.Log ("Zombie health is " + health.ToString() + "/" + maxHealth.ToString() + " = " + healthPercentage.ToString () + "%");
+		//Debug.Log ("Zombie health is " + health.ToString() + "/" + maxHealth.ToString() + " = " + healthPercentage.ToString () + "%");
 
 		// Update the health bar game object
 		fill.transform.localScale = new Vector3 (healthPercentage, 1f, 1f);
