@@ -12,7 +12,7 @@ public class AnimController2 : MonoBehaviour {
     public Transform playerLocation;
 	static float playerDistanceThreshold = 50f;
 	static float zombieDeathTimeout = 5f;    
-    private float zombieAttackDistanceThreshold = 10f;
+    private float zombieAttackDistanceThreshold = 5f;
     private GameObject player;
     private Text scoreText;
     private GameObject levelManager;   
@@ -69,8 +69,8 @@ public class AnimController2 : MonoBehaviour {
         }
     }
 
-    private int interval = 1;
-    private float nextTime = 0;
+	private float attackInterval = 1f; // The zombie attacks every x seconds
+	private float nextAttackTime = 0;
 
     // Update is called once per frame
     void Update() {
@@ -98,17 +98,19 @@ public class AnimController2 : MonoBehaviour {
                 //only the types of zombies wearing suits will attack you
                 if (fpsHealth != null && IsWearingSuit)
                 {
+
+					Debug.Log ("HI!");
                     if (playerDistance < zombieAttackDistanceThreshold)
                     {
                         //play zombie attack animation
                         anim.SetBool("closeToMe", true);
-                        //decrement player health 
-                        if (Time.time >= nextTime)
+                        //decrement player health once attackInterval time is reached
+						float currTime = Time.time;
+                        if (currTime >= nextAttackTime)
                         {
-                            nextTime += interval;
-                            //excute every interval seconds
-                            fpsHealth.healthDamaged(2);
-                            Debug.Log("attacked by zombie, time: " + Time.time);                            
+							nextAttackTime = currTime +  attackInterval;
+                            fpsHealth.healthDamaged(10);
+                            Debug.Log("attacked by zombie, time: " + currTime);                            
                         }                        
                     }
                     else
