@@ -12,7 +12,6 @@ public class HealthUI : MonoBehaviour {
 	GameObject player;
 
 	Image fillImage;
-	int currHealth = -1;
 	int maxHealth = -1;
 
 	bool active = true;
@@ -44,11 +43,9 @@ public class HealthUI : MonoBehaviour {
 
 	public void SetHealth(int health) {
 		maxHealth = health;
-		currHealth = maxHealth;
 	}
 
 	public void UpdateHealth(int health) {
-		currHealth = health;
 
 		// Guarantee that the health never goes above 1 or below 0
 		float healthPercentage = Mathf.Clamp01((float) health / (float) maxHealth);
