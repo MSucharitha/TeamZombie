@@ -14,23 +14,30 @@ public class LevelManager : MonoBehaviour {
 	private float levelTimeBonusLimit;
 	private int totalZombiesKilled;
 	private int maxNumZombiesInLevel;
-
+    private GameObject player;
+    private FPSHealth fpsHealth;
     // Managers and GameObjects necessary to run this
     private GameObject scoreObject;
     private Text scoreText;
     private GameObject zombieManager;
     private Manager zombieManagerScript;
-   
+
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         zombieManager = GameObject.Find("EnemyManager");
         if (zombieManager != null)
         {
             zombieManagerScript = zombieManager.GetComponent<Manager>();
         }
 
-		level = 0;
+        player = GameObject.FindWithTag("Player");
+        if (player != null) {
+            fpsHealth = player.GetComponent<FPSHealth>();
+        }       
+
+        //to test levels
+        level = 0;
 		totalZombiesKilled = 0;
 		StartNewLevel ();
     }
@@ -44,11 +51,22 @@ public class LevelManager : MonoBehaviour {
 		level += 1;
 		totalZombiesKilled += numZombiesKilled;
 		numZombiesKilled = 0;
-
+        //add bonus health points for player
+        if (fpsHealth != null) {
+            fpsHealth.healthIncreaseBonus(20);
+        }
         // Reset Zombie Spawn Point and Increase Num Zombie Spawns
         if (zombieManagerScript != null) {
-			maxNumZombiesInLevel = 30 + (level - 1) * 20;
+			maxNumZombiesInLevel = 20 + (level - 1) * 10;
             zombieManagerScript.setMaxObjects(maxNumZombiesInLevel);
+            //decrease spawntime
+            float spawnTimeForCurrentLevel = Mathf.Max(4 - 0.5f * level, 0.2f) ;
+            zombieManagerScript.setSpawnTime(spawnTimeForCurrentLevel);
+            //add new types
+            if (level > 1)
+            {
+                zombieManagerScript.addZombieTypes(level);
+            }
         }
         Debug.Log("current level: " + this.level);
 

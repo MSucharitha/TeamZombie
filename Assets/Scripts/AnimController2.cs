@@ -11,7 +11,8 @@ public class AnimController2 : MonoBehaviour {
     bool keepwalking = true;
     public Transform playerLocation;
 	static float playerDistanceThreshold = 50f;
-	static float zombieDeathTimeout = 5f;
+	static float zombieDeathTimeout = 5f;    
+    private float zombieAttackDistanceThreshold = 10f;
     private GameObject player;
     private Text scoreText;
     private GameObject levelManager;   
@@ -19,8 +20,8 @@ public class AnimController2 : MonoBehaviour {
     private GameObject zombieManager;
     private Manager zombieManagerScript;
     private CharacterController zombieController;
-
-	public GameObject healthbarObject;
+    private FPSHealth fpsHealth;
+    public GameObject healthbarObject;
 	public GameObject arrowObject;
 
 	private float lastShootTime = -100f;
@@ -30,7 +31,7 @@ public class AnimController2 : MonoBehaviour {
         anim = GetComponent<Animator>();
 
 		if (healthbarObject != null) {
-			Debug.Log("Life is " + anim.GetInteger ("life").ToString());
+			//Debug.Log("Life is " + anim.GetInteger ("life").ToString());
 			healthbarObject.GetComponent<HealthUI> ().SetHealth (anim.GetInteger ("life"));
 		}
 
@@ -83,6 +84,25 @@ public class AnimController2 : MonoBehaviour {
                 float rotateSpeed = playerAngle * Time.deltaTime;
                 transform.Rotate(0f, rotateSpeed, 0f, Space.Self);
 
+                // Check if zombie is near player
+                float playerDistance = Vector3.Distance(player.transform.position, transform.position);               
+                fpsHealth = player.GetComponent<FPSHealth>();               
+                if (fpsHealth != null && this.name.Contains("suit"))
+                {
+                    if (playerDistance < zombieAttackDistanceThreshold)
+                    {
+                        //play zombie attack animation
+                        anim.SetBool("closeToMe", true);
+                        //decrement player health 
+                        fpsHealth.healthDamaged(2);
+                        Debug.Log("attacked by zombie");                       
+                    }
+                    else
+                    {
+                        anim.SetBool("closeToMe", false);
+                    }
+                }
+
                 //				// Check if player is near the zombie
                 //				float playerDistance = Vector3.Distance (player.transform.position, transform.position);
                 //				if (playerDistance < playerDistanceThreshold) {
@@ -117,15 +137,13 @@ public class AnimController2 : MonoBehaviour {
     }
 
 	public void shoot(int damage) {
-		// TODO: REMOVE NEXT LINE
-		damage = 1;
-
+		
 		// Calculate the HP of the zombie after damage is taken
 		int HP = anim.GetInteger ("life");
-		Debug.Log ("Health was " + HP.ToString ());
+		//Debug.Log ("Health was " + HP.ToString ());
 		HP = Mathf.Max(HP - damage, 0);
-		Debug.Log ("Health after damage is " + HP.ToString ());
-		Debug.Log ("Zombie HP: " + anim.GetInteger("life") + ", " + HP);
+		//Debug.Log ("Health after damage is " + HP.ToString ());
+		//Debug.Log ("Zombie HP: " + anim.GetInteger("life") + ", " + HP);
 
 		// Update the HP/Life points of the zombie
 		anim.SetInteger ("life", HP);
@@ -149,11 +167,15 @@ public class AnimController2 : MonoBehaviour {
             if (zombieManagerScript != null)
             {
                 zombieManagerScript.decrementSpawnCount();
-                Debug.Log("zombie killed, " + "current zombie count: " + zombieManagerScript.getSpawnCount());
+                //Debug.Log("zombie killed, " + "current zombie count: " + zombieManagerScript.getSpawnCount());
             }
 
             //increment score here
-            levelManagerScript.incrementScore(100);
+            int toAdd = 100;
+            if (this.name.Contains("suit")) {
+                toAdd = 200;
+            }
+            levelManagerScript.incrementScore(toAdd);
 			levelManagerScript.OnZombieKill ();
 
 			// Stop showing arrow on zombie death
